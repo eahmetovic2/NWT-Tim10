@@ -3,10 +3,17 @@ package com.example.uploadservice.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.uploadservice.model.City;
-import com.example.uploadservice.service.CityService;
-import com.example.uploadservice.model.TaskFile;
-import com.example.uploadservice.service.TaskFileService;
+import com.example.uploadservice.model.Zadaca;
+import com.example.uploadservice.service.ZadacaService;
+
+import com.example.uploadservice.model.Predmet;
+import com.example.uploadservice.service.PredmetService;
+
+import com.example.uploadservice.model.Ucenik;
+import com.example.uploadservice.service.UcenikService;
+
+import com.example.uploadservice.model.BodoviZadaca;
+import com.example.uploadservice.service.BodoviZadacaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,28 +58,42 @@ import java.nio.file.Path;
 public class DefaultController {
 
     @Autowired
-    private CityService cityService;
+    private BodoviZadacaService bodoviZadacaService;
 
 	@Autowired
-    private TaskFileService taskFileService;
+    private PredmetService predmetService;
 
-    @RequestMapping(value="/testAllCities", method = RequestMethod.GET)
-    public List<City> testAllCities() { 
-        return cityService.getAllCities();
+    @Autowired
+    private UcenikService ucenikService;
+
+    @Autowired
+    private ZadacaService zadacaService;
+
+
+    @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
+    public void testAllModels() { 
+        Ucenik ucenik = new Ucenik("John","Doe");
+        ucenikService.save(ucenik);
+        Predmet predmet = new Predmet("IM2");
+        predmetService.save(predmet);
+        Zadaca zadaca = new Zadaca("open",predmet,"fn","fi","ft","wbl","wvl");
+        zadacaService.save(zadaca);
+        BodoviZadaca bodoviZadaca = new BodoviZadaca(zadaca,ucenik,3);
+        bodoviZadacaService.save(bodoviZadaca); 
     }
 
-    @RequestMapping(value="/testCityByName", method = RequestMethod.GET)
-    public City testCityByName() { 
-        return cityService.getCityByName("sarajevo");
+    @RequestMapping(value="/getAllBodoviZadaca", method = RequestMethod.GET)
+    public List<BodoviZadaca> getAllBodoviZadaca() { 
+        return bodoviZadacaService.getAllBodoviZadaca();
     }
 
-    @RequestMapping(value="/testSave", method = RequestMethod.GET)
-    public void testSave() { 
-        cityService.save(new City("pariz","12345"));
+    @RequestMapping(value="/getPredmet", method = RequestMethod.GET)
+    public Predmet getPredmet() { 
+        return zadacaService.getZadacaById(2).get().getPredmet();
     }
 
     @RequestMapping(value="/testUploadFile", method = RequestMethod.POST)
-    public TaskFile uploadSingleFile(@RequestParam("file") MultipartFile multipart) throws IOException {
+    public BodoviZadaca uploadSingleFile(@RequestParam("file") MultipartFile multipart) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         Path tempFile = Files.createTempFile(multipart.getOriginalFilename().split("\\.")[0] , multipart.getContentType().split("/")[1]);
@@ -91,11 +112,15 @@ public class DefaultController {
         String fileId = response.get("id");
         String webContentLink = response.get("webContentLink");
         String webViewLink = response.get("webViewLink");
-        return taskFileService.save(new TaskFile(fileName,fileId,fileType,webContentLink,webViewLink));
-    }
 
-    @RequestMapping(value="/testAllTaskFiles", method = RequestMethod.GET)
-    public List<TaskFile> testAllTaskFiles() { 
-        return taskFileService.getAllTaskFiles();
+        Ucenik ucenik = new Ucenik("Upload","Doe");
+        ucenikService.save(ucenik);
+        Predmet predmet = new Predmet("IM3");
+        predmetService.save(predmet);
+        Zadaca zadaca = new Zadaca("open",predmet,fileName,fileId,fileType,webContentLink,webViewLink);
+        zadacaService.save(zadaca);
+        BodoviZadaca bodoviZadaca = new BodoviZadaca(zadaca,ucenik,5);
+        return bodoviZadacaService.save(bodoviZadaca); 
     }
+    
 }
