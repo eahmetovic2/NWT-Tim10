@@ -16,9 +16,9 @@ public interface IzostanakService {
     
     List<Izostanak> findByDatum(Date datum);
 	   
-    List<Izostanak> findByPredmetId(int predmetId);
+    List<Izostanak> findByPredmetid(int predmetid);
 
-    List<Izostanak> findByUcenikId(int ucenikId);
+    List<Izostanak> findByUcenikid(int ucenikid);
 
 	void delete(Izostanak ucenik);
 }

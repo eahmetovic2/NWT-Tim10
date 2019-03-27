@@ -56,9 +56,9 @@ public class PredmetController {
         return predmetService.dajSvePredmete();
     }
 
-    @RequestMapping(value="/predmet/{predmetId}", method = RequestMethod.GET)
-    public Optional<Predmet> getPredmetById(@PathVariable Integer predmetId) { 
-        return predmetService.getPredmetById(predmetId);
+    @RequestMapping(value="/predmet/{predmetid}", method = RequestMethod.GET)
+    public Optional<Predmet> getPredmetById(@PathVariable Integer predmetid) { 
+        return predmetService.getPredmetById(predmetid);
     }
 
     @RequestMapping(value = "/predmet/create", method = RequestMethod.POST, consumes="application/json")

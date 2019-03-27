@@ -39,13 +39,13 @@ public class IzostanakServiceImpl implements IzostanakService {
     }
 
     @Override
-    public List<Izostanak> findByPredmetId(int predmetId) {
-        return izostanakRepository.findByPredmetId(predmetId);
+    public List<Izostanak> findByPredmetid(int predmetid) {
+        return izostanakRepository.findByPredmetid(predmetid);
     }
 
     @Override
-    public List<Izostanak> findByUcenikId(int ucenikId) {
-        return izostanakRepository.findByUcenikId(ucenikId);
+    public List<Izostanak> findByUcenikid(int ucenikid) {
+        return izostanakRepository.findByUcenikid(ucenikid);
     }
 
 

@@ -63,6 +63,6 @@ public class IzostanakController {
 
     @RequestMapping(value = "/izostanak/create", method = RequestMethod.POST, consumes="application/json")
     public Izostanak create(@RequestBody Izostanak model) { 
-        return izostanakService.save(new Izostanak(model.datum,model.predmetId,model.ucenikId));
+        return izostanakService.save(new Izostanak(model.datum,model.predmetid,model.ucenikid));
     }
 }

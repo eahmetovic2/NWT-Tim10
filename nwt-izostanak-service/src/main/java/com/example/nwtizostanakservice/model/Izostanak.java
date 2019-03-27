@@ -10,8 +10,8 @@ public class Izostanak{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     public Date datum;
-    public Integer predmetId;
-    public Integer ucenikId;
+    public Integer predmetid;
+    public Integer ucenikid;
     private boolean opravdan;
 
 
@@ -21,12 +21,12 @@ public class Izostanak{
         return datum;
     }
 
-    public Integer getPredmetId() {
-        return predmetId;
+    public Integer getPredmetid() {
+        return predmetid;
     }
 
-    public Integer getUcenikId() {
-        return ucenikId;
+    public Integer getUcenikid() {
+        return ucenikid;
     }
 
     public boolean getOpravdanje() {
@@ -37,10 +37,10 @@ public class Izostanak{
         this.opravdan=opravdan;
     }
 
-    public Izostanak(Date datum, Integer predmetId, Integer ucenikId){
+    public Izostanak(Date datum, Integer predmetid, Integer ucenikid){
         this.datum = datum;
-        this.predmetId=predmetId;
-        this.ucenikId=ucenikId;
+        this.predmetid=predmetid;
+        this.ucenikid=ucenikid;
         this.opravdan=false;
     }
 }
