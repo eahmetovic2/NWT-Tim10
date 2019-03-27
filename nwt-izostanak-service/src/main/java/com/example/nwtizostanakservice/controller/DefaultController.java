@@ -48,6 +48,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.sql.Date;
 
 @RestController
 public class DefaultController {
@@ -58,6 +59,9 @@ public class DefaultController {
     @Autowired
     private PredmetService predmetService;
 
+    @Autowired
+    private IzostanakService izostanakService;
+
 
     @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
     public void testAllModels() { 
@@ -65,9 +69,15 @@ public class DefaultController {
         Ucenik ucenik = new Ucenik("John4","Doe");
         Ucenik ucenik2 = ucenikService.save(ucenik);
 
-    }
-    @RequestMapping(value="/ucenik1/sve", method = RequestMethod.GET)
-    public List<Ucenik> dajSveUcenike() { 
-        return ucenikService.dajSveUcenike();
+        Predmet predmet = new Predmet("likovno");
+        predmetService.save(predmet);
+
+        Date k = new Date(2011, 22, 9);
+        Izostanak i = new Izostanak(k,1,2);
+        izostanakService.save(i);
+
+
+
+
     }
 }
