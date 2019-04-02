@@ -2,11 +2,11 @@ package com.example.nwtocjenaservice.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
+import com.example.nwtocjenaservice.model.Predmet;
 
 
 @Repository
@@ -14,7 +14,7 @@ public interface UcenikPredmetaRepository extends JpaRepository<UcenikPredmeta, 
 
 	UcenikPredmeta findById(int id);
 	
-	List<UcenikPredmeta> findByFkPredmetId(int predmetId);
+	List<UcenikPredmeta> findByPredmet(Predmet predmet);
 	
 	List<UcenikPredmeta> findAll();
 	

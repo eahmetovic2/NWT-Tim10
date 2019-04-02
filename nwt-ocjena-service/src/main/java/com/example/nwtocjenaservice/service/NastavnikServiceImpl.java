@@ -6,10 +6,7 @@ import com.example.nwtocjenaservice.service.NastavnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -33,7 +30,7 @@ public class NastavnikServiceImpl implements NastavnikService {
     }
 
     @Override
-    public Nastavnik getNastavnikByName(String ime) {
+    public List<Nastavnik> getNastavnikByName(String ime) {
         return nastavnikRepository.findByIme(ime);
     }
     public void delete(Nastavnik nastavnik){

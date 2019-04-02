@@ -2,7 +2,6 @@ package com.example.nwtocjenaservice.service;
 
 import com.example.nwtocjenaservice.model.Ocjena;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 public interface OcjenaService {
@@ -16,4 +15,7 @@ public interface OcjenaService {
    	List<Ocjena> dajSveOcjeneUcenika(int ucenikId);
 
 	void delete(Ocjena ucenik);
+
+	List<Ocjena> dajSveOcjeneUcenikaPredmeta(Integer ucenikId, Integer predmetId) throws Exception;
+	
 }

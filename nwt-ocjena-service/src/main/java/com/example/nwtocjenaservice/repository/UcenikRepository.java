@@ -2,7 +2,6 @@ package com.example.nwtocjenaservice.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,7 +13,7 @@ public interface UcenikRepository extends JpaRepository<Ucenik, Integer> {
 
 	Ucenik findById(int id);
 	
-	List<Ucenik> findAll();
+	List<Ucenik> findAll();	
 	
 	Ucenik save(Ucenik ucenik);
 	

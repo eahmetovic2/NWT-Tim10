@@ -1,21 +1,22 @@
 package com.example.nwtocjenaservice.service;
 
+import com.example.nwtocjenaservice.model.Predmet;
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
+import com.example.nwtocjenaservice.repository.PredmetRepository;
 import com.example.nwtocjenaservice.repository.UcenikPredmetaRepository;
 import com.example.nwtocjenaservice.service.UcenikPredmetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
 public class UcenikPredmetaServiceImpl implements UcenikPredmetaService {
     @Autowired
     private UcenikPredmetaRepository ucenikPredmetaRepository;
+    @Autowired
+    private PredmetRepository predmetRepository;
 
     @Override
     public Optional<UcenikPredmeta> getUcenikPredmetaById(Integer id) {
@@ -28,8 +29,9 @@ public class UcenikPredmetaServiceImpl implements UcenikPredmetaService {
     }
 
     @Override
-    public List<UcenikPredmeta> dajSveUcenikePredmeta(Integer predmetId) {
-        return ucenikPredmetaRepository.findByFkPredmetId(predmetId);
+    public List<UcenikPredmeta> dajSveUcenikePredmeta(int predmetId) {
+        Predmet predmet = predmetRepository.findById(predmetId);
+        return ucenikPredmetaRepository.findByPredmet(predmet);
     }
 
     @Override

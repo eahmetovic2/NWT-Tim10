@@ -1,58 +1,23 @@
 package com.example.nwtocjenaservice.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.example.nwtocjenaservice.model.Ocjena;
+import com.example.nwtocjenaservice.service.NastavnikService;
 import com.example.nwtocjenaservice.service.OcjenaService;
-
 import com.example.nwtocjenaservice.model.Predmet;
 import com.example.nwtocjenaservice.service.PredmetService;
-
-import com.example.nwtocjenaservice.model.Ucenik;
+import com.example.nwtocjenaservice.service.UcenikPredmetaService;
 import com.example.nwtocjenaservice.service.UcenikService;
+import com.example.nwtocjenaservice.model.Ucenik;
+import com.example.nwtocjenaservice.model.UcenikPredmeta;
+
+import java.time.LocalDate;
 
 import com.example.nwtocjenaservice.model.Nastavnik;
-import com.example.nwtocjenaservice.service.NastavnikService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.http.MediaType;
-import java.util.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.util.UUID;
-import java.util.Optional;
-import org.springframework.web.multipart.MultipartFile;
-
-
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 
 @RestController
@@ -65,26 +30,39 @@ public class DefaultController {
     private UcenikService ucenikService;
 
     @Autowired
-    private NastavnikService nastavnikService;
-
-    @Autowired
     private PredmetService predmetService;
 
-    @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
-    public void testAllModels() { 
+    @Autowired
+    private UcenikPredmetaService ucenikPredmetaService;
 
-        Ucenik ucenik = new Ucenik("John","Doe");
-        Ucenik ucenik2 = ucenikService.save(ucenik);
+    @Autowired
+    private NastavnikService nastavnikService;
 
-        Nastavnik nastavnik = new Nastavnik("Hamza","Iseric");
-        Nastavnik nastavnik2 = nastavnikService.save(nastavnik);
+    @RequestMapping(value="/start", method = RequestMethod.GET)
+    public void start() { 
 
-        Predmet predmet = new Predmet("IM2", 1);
-        Predmet predmet2 = predmetService.save(predmet);
+        Ucenik ucenik = new Ucenik(0, "Hamza", "Iseric");
+        ucenik= ucenikService.save(ucenik);
+		Ucenik ucenik2 = new Ucenik(0, "Enis", "Ahmetovic");
+        ucenik2 = ucenikService.save(ucenik2);
 
-        LocalDate myDateObj = LocalDate.now();
+        Nastavnik nastavnik = new Nastavnik(0, "Ehvan", "Građanin");
+        nastavnik = nastavnikService.save(nastavnik);
 
-        Ocjena ocjena = new Ocjena(10, myDateObj, 1, 1);
-        Ocjena ocjena2 = ocjenaService.save(ocjena);
+        Predmet predmet = new Predmet(0, "IM2", nastavnik);
+        predmet = predmetService.save(predmet);
+
+        LocalDate datum = LocalDate.now();
+
+        Ocjena ocjena = new Ocjena(0, 5, datum, ucenik, predmet);
+        ocjena = ocjenaService.save(ocjena);
+        
+        Ocjena ocjena2 = new Ocjena(0, 3, datum, ucenik, predmet);
+		ocjena2 = ocjenaService.save(ocjena2);
+        Ocjena ocjena3 = new Ocjena(0, 4, datum, ucenik2, predmet);
+		ocjena3 = ocjenaService.save(ocjena3);
+		
+		ucenikPredmetaService.save(new UcenikPredmeta(0, ucenik, predmet));
+		ucenikPredmetaService.save(new UcenikPredmeta(0, ucenik2, predmet));
     }
 }

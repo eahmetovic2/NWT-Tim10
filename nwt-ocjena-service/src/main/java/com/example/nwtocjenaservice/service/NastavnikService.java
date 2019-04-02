@@ -2,7 +2,6 @@ package com.example.nwtocjenaservice.service;
 
 import com.example.nwtocjenaservice.model.Nastavnik;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 public interface NastavnikService {
@@ -13,7 +12,7 @@ public interface NastavnikService {
     
    	List<Nastavnik> dajSveNastavnike();
 
-	Nastavnik getNastavnikByName(String ime);
+	List<Nastavnik> getNastavnikByName(String ime);
 
 	void delete(Nastavnik nastavnik);
 }

@@ -8,6 +8,7 @@ public class IzostanakServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IzostanakServiceApplication.class, args);
+		
 	}
 
 }

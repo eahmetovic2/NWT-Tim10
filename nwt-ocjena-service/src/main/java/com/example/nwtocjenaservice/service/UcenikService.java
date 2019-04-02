@@ -2,7 +2,6 @@ package com.example.nwtocjenaservice.service;
 
 import com.example.nwtocjenaservice.model.Ucenik;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 public interface UcenikService {

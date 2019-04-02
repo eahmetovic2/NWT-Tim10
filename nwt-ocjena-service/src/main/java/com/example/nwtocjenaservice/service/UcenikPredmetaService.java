@@ -2,7 +2,6 @@ package com.example.nwtocjenaservice.service;
 
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
 import java.util.List;
-import java.util.Collection;
 import java.util.Optional;
 
 public interface UcenikPredmetaService {
@@ -11,7 +10,7 @@ public interface UcenikPredmetaService {
 	
     UcenikPredmeta save(UcenikPredmeta ucenikPredmeta);
     
-   	List<UcenikPredmeta> dajSveUcenikePredmeta(Integer predmetId);
+   	List<UcenikPredmeta> dajSveUcenikePredmeta(int predmetId);
 
 	void delete(UcenikPredmeta ucenikPredmeta);
 }
