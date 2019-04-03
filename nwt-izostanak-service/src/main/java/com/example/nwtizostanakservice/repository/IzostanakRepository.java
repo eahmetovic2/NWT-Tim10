@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.nwtizostanakservice.model.Izostanak;
+import com.example.nwtizostanakservice.model.Predmet;
+import com.example.nwtizostanakservice.model.Ucenik;
+
 import java.sql.Date;
 
 
@@ -23,9 +26,9 @@ public interface IzostanakRepository extends JpaRepository<Izostanak, Integer> {
     
     List<Izostanak> findByDatum(Date datum);
 
-    List<Izostanak> findByPredmetid(Integer predmetid);
+    List<Izostanak> findByPredmet(Predmet predmet);
 
-    List<Izostanak> findByUcenikid(Integer ucenikid);
+    List<Izostanak> findByUcenik(Ucenik ucenik);
 
 	void delete(Izostanak izostanak);
 }

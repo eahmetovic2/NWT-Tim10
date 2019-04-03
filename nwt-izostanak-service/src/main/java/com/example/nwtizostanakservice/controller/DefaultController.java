@@ -63,21 +63,30 @@ public class DefaultController {
     private IzostanakService izostanakService;
 
 
-    @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
-    public void testAllModels() { 
+    @RequestMapping(value="/pocetna", method = RequestMethod.GET)
+    public void pocetna() { 
 
-        Ucenik ucenik = new Ucenik("John4","Doe");
+        Ucenik ucenik = new Ucenik("John","Doe");
         Ucenik ucenik2 = ucenikService.save(ucenik);
 
         Predmet predmet = new Predmet("likovno");
         predmetService.save(predmet);
 
         Date k = new Date(2011, 22, 9);
-        Izostanak i = new Izostanak(k,1,2);
+        Izostanak i = new Izostanak(k,predmet,ucenik);
         izostanakService.save(i);
 
+        //Testni slucajevi;
 
+        //ucenik = new Ucenik("John4","Doe");
+        //ucenik2 = ucenikService.save(ucenik);
 
+        //predmet = new Predmet("likovno");
+        //predmetService.save(predmet);
+
+        //k = new Date(2011, 22, 9);
+        //i = new Izostanak(k,predmet,ucenik);
+        //izostanakService.save(i);
 
     }
 }

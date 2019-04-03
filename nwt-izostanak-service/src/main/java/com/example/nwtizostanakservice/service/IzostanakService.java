@@ -20,5 +20,8 @@ public interface IzostanakService {
 
     List<Izostanak> findByUcenikid(int ucenikid);
 
+    List<Izostanak> dajSveIzostankeUcenikaPredmeta(Integer ucenikid, Integer predmetid) throws Exception;
+    
+
 	void delete(Izostanak ucenik);
 }
