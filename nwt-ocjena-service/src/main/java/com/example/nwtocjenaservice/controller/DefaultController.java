@@ -11,10 +11,22 @@ import com.example.nwtocjenaservice.model.Ucenik;
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import com.example.nwtocjenaservice.model.Nastavnik;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +49,17 @@ public class DefaultController {
 
     @Autowired
     private NastavnikService nastavnikService;
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
+
+        StringBuilder message = new StringBuilder();
+        Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
+        for (ConstraintViolation<?> violation : violations) {
+            message.append(violation.getMessage().concat(";"));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message); 
+    }
 
     @RequestMapping(value="/start", method = RequestMethod.GET)
     public void start() { 

@@ -42,6 +42,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ConstraintViolation;
 
 import java.io.IOException;
 import java.io.File;
