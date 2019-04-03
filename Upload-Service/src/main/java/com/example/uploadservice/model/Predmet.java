@@ -1,14 +1,20 @@
 package com.example.uploadservice.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "predmet")
 public class Predmet{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Naziv predmeta ne moze biti prazno")
+    @Size(min=2, max=30, message= "Naziv predmeta mora imati vise od 3 slova i manje od 30")
     private String naziv;
 
 
