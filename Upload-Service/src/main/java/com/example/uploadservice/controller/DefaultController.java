@@ -3,6 +3,8 @@ package com.example.uploadservice.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.uploadservice.model.Greska;
+
 import com.example.uploadservice.model.Zadaca;
 import com.example.uploadservice.service.ZadacaService;
 
@@ -81,7 +83,7 @@ public class DefaultController {
         for (ConstraintViolation<?> violation : violations) {
             message.append(violation.getMessage().concat(";"));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message); 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska(message.toString())); 
     }
 
 
@@ -124,7 +126,7 @@ public class DefaultController {
             zadaca.setPredmet(predmet);
             zadacaData = zadacaService.save(zadaca);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nevalidan zadacaId ili predmetId.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Nevalidan zadacaId ili predmetId."));
         }
         return ResponseEntity.ok(zadacaData);
        
@@ -140,7 +142,7 @@ public class DefaultController {
             Zadaca zadaca = zadacaService.getZadacaById(bodoviZadaca.getZadacaId()).get();
             bodoviZadacaData = bodoviZadacaService.save(new BodoviZadaca(zadaca,ucenik,bodoviZadaca.getBodovi()));
         } catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Zadaca ili ucenik sa trazenim id-om ne postoji!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Zadaca ili ucenik sa trazenim id-om ne postoji!"));
         }
         return ResponseEntity.ok(bodoviZadacaData);
     }
@@ -156,7 +158,7 @@ public class DefaultController {
         try {
             predmet = predmetService.getPredmetById(id).get();
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ne postoji predmet sa trazenim id-om.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji predmet sa trazenim id-om."));
         }
         return ResponseEntity.ok(predmet);
     }
@@ -191,9 +193,9 @@ public class DefaultController {
             zadacaData = zadacaService.save(zadaca);
 
         } catch (IOException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Google drive upload greska!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Google drive upload greska!"));
         } catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Zadaca sa trazenim id-om ne postoji!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Zadaca sa trazenim id-om ne postoji!"));
         }
         return ResponseEntity.ok(zadacaData);
     }
