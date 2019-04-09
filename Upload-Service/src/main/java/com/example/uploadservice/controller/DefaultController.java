@@ -64,6 +64,8 @@ import java.nio.file.Path;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ConstraintViolation;
 
+import com.example.uploadservice.rabbitmq.UcenikMessageSender;
+
 @RestController
 public class DefaultController {
 
@@ -84,6 +86,9 @@ public class DefaultController {
 
     @Autowired
 	private UploadIzostanakServiceProxySimple simpleProxy;
+
+    @Autowired
+    private UcenikMessageSender ucenikMessageSender;
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
@@ -154,6 +159,7 @@ public class DefaultController {
     // ---> Create Ucenik - POST <---
     @RequestMapping(value="/ucenik", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> saveUcenik(@RequestBody Ucenik ucenik) { 
+        ucenikMessageSender.sendUcenik(ucenik);
         Ucenik ucenikData = ucenikService.save(ucenik);
         return ResponseEntity.ok(ucenikData);
     }
