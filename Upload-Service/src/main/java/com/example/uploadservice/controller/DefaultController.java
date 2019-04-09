@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.uploadservice.model.Greska;
+import com.example.uploadservice.proxy.UploadIzostanakServiceProxySimple;
 
 import com.example.uploadservice.model.Zadaca;
 import com.example.uploadservice.service.ZadacaService;
@@ -16,6 +17,9 @@ import com.example.uploadservice.service.UcenikService;
 
 import com.example.uploadservice.model.BodoviZadaca;
 import com.example.uploadservice.service.BodoviZadacaService;
+
+import com.example.uploadservice.model.UcenikPredmeta;
+import com.example.uploadservice.service.UcenikPredmetaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +79,12 @@ public class DefaultController {
     @Autowired
     private ZadacaService zadacaService;
 
+    @Autowired
+    private UcenikPredmetaService ucenikPredmetaService;
+
+    @Autowired
+	private UploadIzostanakServiceProxySimple simpleProxy;
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
 
@@ -87,32 +97,160 @@ public class DefaultController {
     }
 
 
-    @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
-    public void testAllModels() { 
-        Ucenik ucenik = new Ucenik("John","Doe");
-        ucenikService.save(ucenik);
-        Predmet predmet = new Predmet("IM2");
-        predmetService.save(predmet);
-        Zadaca zadaca = new Zadaca("open",predmet,"fn","fi","ft","wbl","wvl");
-        zadacaService.save(zadaca);
-        BodoviZadaca bodoviZadaca = new BodoviZadaca(zadaca,ucenik,3);
-        bodoviZadacaService.save(bodoviZadaca); 
-    }
+    // @RequestMapping(value="/testAllModels", method = RequestMethod.GET)
+    // public void testAllModels() { 
+    //     Ucenik ucenik = new Ucenik("John","Doe");
+    //     ucenikService.save(ucenik);
+    //     Predmet predmet = new Predmet("IM2");
+    //     predmetService.save(predmet);
+    //     Zadaca zadaca = new Zadaca("open",predmet,"fn","fi","ft","wbl","wvl");
+    //     zadacaService.save(zadaca);
+    //     BodoviZadaca bodoviZadaca = new BodoviZadaca(zadaca,ucenik,3);
+    //     bodoviZadacaService.save(bodoviZadaca); 
+    // }
 
+
+    // -------------> Predmet <-------------
+
+
+    // ---> Create Predmet - POST <---
     @RequestMapping(value="/predmet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> savePredmet(@RequestBody Predmet predmet) { 
-        Predmet predmetData = predmetService.save(predmet);
-        return ResponseEntity.ok(predmetData);
+        return simpleProxy.savePredmet(predmet);
     }
 
+    // ---> Update Predmet - PUT <---
+    @RequestMapping(value="/predmet/{predmetId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updatePredmet(@RequestBody Predmet predmetNovi, @PathVariable Integer predmetId) { 
+        return simpleProxy.updatePredmet(predmetNovi,predmetId);
+    }
+
+
+    // ---> Delete Predmet - DELETE <---
+    @RequestMapping(value="/predmet/{predmetId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> deletePredmet(@PathVariable Integer predmetId) { 
+        return simpleProxy.deletePredmet(predmetId);
+    }
+
+
+    // ---> Get Predmet - GET <---
+    @RequestMapping(value="/predmet/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getPredmet(@PathVariable Integer id) { 
+        return simpleProxy.getPredmet(id);
+    }
+
+
+    // ---> Get All Predmet - GET <---
+    @RequestMapping(value="/predmeti", method = RequestMethod.GET)
+    public List<Predmet> getAllPredmet() { 
+        return simpleProxy.dajSvePredmete();		
+    }
+
+
+
+
+    // -------------> Ucenik <-------------
+
+    // ---> Create Ucenik - POST <---
     @RequestMapping(value="/ucenik", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> saveUcenik(@RequestBody Ucenik ucenik) { 
         Ucenik ucenikData = ucenikService.save(ucenik);
         return ResponseEntity.ok(ucenikData);
     }
 
+    // ---> Update Ucenik - PUT <---
+    @RequestMapping(value="/ucenik/{ucenikId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateUcenik(@RequestBody Ucenik ucenikNovi, @PathVariable Integer ucenikId) { 
+        Ucenik ucenik = null;
+        try {
+            ucenik = ucenikService.getUcenikById(ucenikId).get();
+            ucenik.setIme(ucenikNovi.getIme());
+            ucenik.setPrezime(ucenikNovi.getPrezime());
+            ucenik = ucenikService.save(ucenik);
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji ucenik sa trazenim id-om."));
+        }
+        return ResponseEntity.ok(ucenik);
+    }
+
+
+    // ---> Delete Ucenik - DELETE <---
+    @RequestMapping(value="/ucenik/{ucenikId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> deleteUcenik(@PathVariable Integer ucenikId) { 
+        Ucenik ucenik = null;
+        try {
+            ucenik = ucenikService.getUcenikById(ucenikId).get();
+            ucenikService.delete(ucenik);
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji ucenik sa trazenim id-om."));
+        }
+        return ResponseEntity.ok(ucenik);
+    }
+
+
+    // ---> Get Ucenik - GET <---
+    @RequestMapping(value="/ucenik/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getUcenik(@PathVariable Integer id) { 
+        Ucenik ucenik = null;
+        try {
+            ucenik = ucenikService.getUcenikById(id).get();
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji ucenik sa trazenim id-om."));
+        }
+        return ResponseEntity.ok(ucenik);
+    }
+
+
+    // ---> Get All Ucenik - GET <---
+    @RequestMapping(value="/ucenici", method = RequestMethod.GET)
+    public List<Ucenik> getAllUcenik() { 
+        return ucenikService.dajSveUcenike();		
+    }
+
+
+
+    // -------------> UcenikPredmeta <-------------
+
+    // ---> Create UcenikPredmeta - POST <---
+    @RequestMapping(value="/upisiUcenikaNaPredmet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> saveUcenik(@RequestBody UcenikPredmeta ucenikPredmeta) { 
+        UcenikPredmeta ucenikPredmetaData = null;
+        try {
+            Ucenik ucenik = ucenikService.getUcenikById(ucenikPredmeta.getUcenikId()).get();
+            Predmet predmet = predmetService.getPredmetById(ucenikPredmeta.getPredmetId()).get();
+            ucenikPredmeta.setUcenik(ucenik);
+            ucenikPredmeta.setPredmet(predmet);
+            ucenikPredmetaData = ucenikPredmetaService.save(ucenikPredmeta);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Nevalidan ucenikId ili predmetId."));
+        }
+        return ResponseEntity.ok(ucenikPredmetaData);
+    }
+
+    // ---> Delete Ucenik - DELETE <---
+    @RequestMapping(value="/ispisiUcenikaSaPredmeta/{ucenikId}/{predmetId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> deleteUcenik(@PathVariable Integer ucenikId,@PathVariable Integer predmetId) { 
+        Ucenik ucenik = null;
+        
+        try {
+            for (UcenikPredmeta ucenikPredmeta : ucenikPredmetaService.getAllUcenikPredmeta()) {
+                if (ucenikPredmeta.getUcenik().getId() == ucenikId && ucenikPredmeta.getPredmet().getId() == predmetId){
+                    ucenikPredmetaService.delete(ucenikPredmeta);
+                }
+            }
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji ucenik sa trazenim id-om."));
+        }
+        return ResponseEntity.ok(ucenik);
+    }
+
+    // -------------> Zadaca <-------------
+
     @RequestMapping(value="/zadaca", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> saveUcenik(@RequestBody Zadaca zadaca) { 
+    public ResponseEntity<Object> saveZadaca(@RequestBody Zadaca zadaca) { 
         Zadaca zadacaData = zadacaService.save(zadaca);
         return ResponseEntity.ok(zadacaData);
     }
@@ -150,17 +288,6 @@ public class DefaultController {
     @RequestMapping(value="/bodoviZadace", method = RequestMethod.GET)
     public List<BodoviZadaca> getAllBodoviZadaca() { 
         return bodoviZadacaService.getAllBodoviZadaca();
-    }
-
-    @RequestMapping(value="/predmet/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getPredmet(@PathVariable Integer id) { 
-        Predmet predmet = null;
-        try {
-            predmet = predmetService.getPredmetById(id).get();
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji predmet sa trazenim id-om."));
-        }
-        return ResponseEntity.ok(predmet);
     }
 
     @RequestMapping(value="/uploadFile", method = RequestMethod.POST)

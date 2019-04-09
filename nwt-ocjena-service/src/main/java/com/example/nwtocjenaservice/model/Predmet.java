@@ -15,18 +15,28 @@ public class Predmet{
     @NotBlank(message = "Morate unijeti naziv")
     private String naziv;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Nastavnik.class)
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Nastavnik.class)
     @JoinColumn(name = "nastavnik_id", nullable = false)
     private Nastavnik nastavnik;
+
+    @Transient
+    private Integer nastavnikId;
 
 
     public Predmet() {
     }
 
+
+
     public Predmet(Integer id, String naziv, Nastavnik nastavnik) {
         this.id = id;
         this.naziv = naziv;
         this.nastavnik = nastavnik;
+    }
+
+    public Predmet(String naziv, Integer nastavnikId){
+        this.naziv = naziv;
+        this.nastavnikId = nastavnikId;
     }
 
     public Integer getId() {
@@ -51,6 +61,14 @@ public class Predmet{
 
     public void setNastavnik(Nastavnik nastavnik) {
         this.nastavnik = nastavnik;
+    }
+
+     public Integer getNastavnikId() {
+        return this.nastavnikId;
+    }
+
+    public void setNastavnikId(Integer nastavnikId) {
+        this.nastavnikId = nastavnikId;
     }
 
     @Override
