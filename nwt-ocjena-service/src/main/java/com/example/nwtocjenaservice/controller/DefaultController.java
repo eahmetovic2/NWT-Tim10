@@ -9,6 +9,7 @@ import com.example.nwtocjenaservice.service.UcenikPredmetaService;
 import com.example.nwtocjenaservice.service.UcenikService;
 import com.example.nwtocjenaservice.model.Ucenik;
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
+import com.example.nwtocjenaservice.proxy.OcjenaIzostanakServiceProxy;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -50,6 +51,9 @@ public class DefaultController {
     @Autowired
     private NastavnikService nastavnikService;
 
+    @Autowired
+    private OcjenaIzostanakServiceProxy izostanakProxy;
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
 
@@ -87,5 +91,11 @@ public class DefaultController {
 		
 		ucenikPredmetaService.save(new UcenikPredmeta(0, ucenik, predmet));
 		ucenikPredmetaService.save(new UcenikPredmeta(0, ucenik2, predmet));
+    }
+
+    // ---> Get All Predmet - GET <---
+    @RequestMapping(value="/izostanci", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllIzostanci() { 
+        return izostanakProxy.dajSveIzostanke();		
     }
 }

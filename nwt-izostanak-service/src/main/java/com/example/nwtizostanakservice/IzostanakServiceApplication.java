@@ -9,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients 
+@RibbonClient(name="izostanak-service", configuration = RibbonConfiguration.class)
 public class IzostanakServiceApplication {
 
 	public static void main(String[] args) {
@@ -18,11 +22,11 @@ public class IzostanakServiceApplication {
 		
 	}
 
-	@EventListener({ApplicationReadyEvent.class})
+	/* @EventListener({ApplicationReadyEvent.class})
 	void applicationReadyEvent() {
 		System.out.println("Application started ... launching browser now");
 		Browse("http://localhost:8080/pocetna");
-	}
+	} */
 
 	public static void Browse(String url) {
 		String os = System.getProperty("os.name").toLowerCase();
