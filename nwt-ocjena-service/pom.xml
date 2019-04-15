@@ -74,6 +74,41 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<version>2.0.4.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+			<version>1.5.8.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.8.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
+
+<dependency>
+    <groupId>org.mortbay.jetty</groupId>
+    <artifactId>jetty</artifactId>
+    <version>6.1H.22</version>
+</dependency>
 	</dependencies>
 
 	<dependencyManagement>

@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 
 @SpringBootApplication
+@ImportAutoConfiguration(FeignAutoConfiguration.class)
 @EnableFeignClients 
 @RibbonClient(name="ocjena-service", configuration = RibbonConfiguration.class)
 public class OcjenaServiceApplication {
