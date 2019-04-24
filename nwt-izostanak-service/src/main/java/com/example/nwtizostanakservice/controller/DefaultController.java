@@ -9,6 +9,7 @@ import com.example.nwtizostanakservice.model.Izostanak;
 import com.example.nwtizostanakservice.service.IzostanakService;
 import com.example.nwtizostanakservice.model.Predmet;
 import com.example.nwtizostanakservice.service.PredmetService;
+import com.example.nwtizostanakservice.proxy.IzostanakOcjenaServiceProxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,6 +65,10 @@ public class DefaultController {
     @Autowired
     private IzostanakService izostanakService;
 
+    @Autowired
+    private IzostanakOcjenaServiceProxy ocjenaProxy;
+
+
 
     @RequestMapping(value="/pocetna", method = RequestMethod.GET)
     public void pocetna() { 
@@ -91,4 +96,12 @@ public class DefaultController {
         //izostanakService.save(i);
 
     }
+
+    // ---> Get All Predmet - GET <---
+    @RequestMapping(value="/ocjene", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllOcjene() { 
+        return ocjenaProxy.dajSveOcjene();		
+    }
+
+    
 }

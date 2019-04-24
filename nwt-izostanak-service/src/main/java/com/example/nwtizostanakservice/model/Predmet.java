@@ -29,7 +29,7 @@ public class Predmet{
         return naziv;
     }
 
-    public void setNazv(String ime) {
+    public void setNaziv(String ime) {
         this.naziv = ime;
     }
 

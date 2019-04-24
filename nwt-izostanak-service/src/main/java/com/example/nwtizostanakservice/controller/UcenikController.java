@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.example.nwtizostanakservice.model.Ucenik;
 import com.example.nwtizostanakservice.service.UcenikService;
+import com.example.nwtizostanakservice.proxy.IzostanakOcjenaServiceProxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,9 @@ public class UcenikController {
     @Autowired
     private UcenikService ucenikService;
 
+    @Autowired
+    private IzostanakOcjenaServiceProxy ocjenaProxy;
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
 
@@ -72,12 +76,35 @@ public class UcenikController {
         return ucenikService.dajSveUcenike();
     }
 
+    // ---> Get All Predmet - GET <---
+    @RequestMapping(value="/ucenici", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllUcenici() { 
+        return ocjenaProxy.dajSveUcenike();		
+    }
+
     @RequestMapping(value="/ucenik/{ucenikId}", method = RequestMethod.GET)
     public Optional<Ucenik> getUcenikById(@PathVariable Integer ucenikId) { 
         return ucenikService.getUcenikById(ucenikId);
     }
+    //ocjena service dobavljanje ucenika
+    @RequestMapping(value="/ucenikDaj/{ucenikId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getUcenik(@PathVariable Integer ucenikId) { 
+        return ocjenaProxy.getUcenik(ucenikId);		
+    }
 
-
+    //ocjena service dobavljanje ucenika
+    @RequestMapping(value="/ucenik/kreiraj", method = RequestMethod.POST)
+    public ResponseEntity<Object> create2(@RequestBody Ucenik model) { 
+        Object o;
+        try {
+            
+            o=ocjenaProxy.saveUcenik(new Ucenik(model.getIme(), model.getPrezime()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nevalidan format pri kreiranju ucenika");
+        }
+        return ResponseEntity.ok(o);
+        
+    }
 
     @RequestMapping(value = "/ucenik/create", method = RequestMethod.POST, consumes="application/json")
     public ResponseEntity<Object> create(@RequestBody Ucenik model) { 

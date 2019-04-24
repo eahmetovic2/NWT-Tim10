@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.example.nwtizostanakservice.model.Predmet;
 import com.example.nwtizostanakservice.service.PredmetService;
+import com.example.nwtizostanakservice.model.Greska;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,4 +92,62 @@ public class PredmetController {
         }
         return ResponseEntity.ok(predmetService.save(p));
     }
+
+
+        // ---> Create Predmet - POST <---
+        @RequestMapping(value="/predmet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<Object> savePredmet(@RequestBody Predmet predmet) { 
+            Predmet predmetData = predmetService.save(predmet);
+            return ResponseEntity.ok(predmetData);
+        }
+    
+        // ---> Update Predmet - PUT <---
+        @RequestMapping(value="/predmet/{predmetId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<Object> updatePredmet(@RequestBody Predmet predmetNovi, @PathVariable Integer predmetId) { 
+            Predmet predmet = null;
+            try {
+                predmet = predmetService.getPredmetById(predmetId).get();
+                predmet.setNaziv(predmetNovi.getNaziv());
+                predmet = predmetService.save(predmet);
+    
+            } catch (Exception e){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji predmet sa trazenim id-om."));
+            }
+            return ResponseEntity.ok(predmet);
+        }
+    
+    
+        // ---> Delete Predmet - DELETE <---
+        @RequestMapping(value="/predmet/{predmetId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<Object> deletePredmet(@PathVariable Integer predmetId) { 
+            Predmet predmet = null;
+            try {
+                predmet = predmetService.getPredmetById(predmetId).get();
+                predmetService.delete(predmet);
+    
+            } catch (Exception e){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji predmet sa trazenim id-om."));
+            }
+            return ResponseEntity.ok(predmet);
+        }
+    
+    
+        // ---> Get Predmet - GET <---
+        @RequestMapping(value="/predmet/{id}", method = RequestMethod.GET)
+        public ResponseEntity<Object> getPredmet(@PathVariable Integer id) { 
+            Predmet predmet = null;
+            try {
+                predmet = predmetService.getPredmetById(id).get();
+            } catch (Exception e){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Ne postoji predmet sa trazenim id-om."));
+            }
+            return ResponseEntity.ok(predmet);
+        }
+    
+    
+        // ---> Get All Predmet - GET <---
+        @RequestMapping(value="/predmeti", method = RequestMethod.GET)
+        public List<Predmet> getAllPredmet() { 
+            return predmetService.dajSvePredmete();		
+        }
 }
