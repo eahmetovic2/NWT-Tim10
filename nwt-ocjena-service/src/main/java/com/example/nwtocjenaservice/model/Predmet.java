@@ -16,7 +16,7 @@ public class Predmet{
     private String naziv;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Nastavnik.class)
-    @JoinColumn(name = "nastavnik_id", nullable = false)
+    @JoinColumn(name = "nastavnik_id", nullable = true)
     private Nastavnik nastavnik;
 
     @Transient

@@ -3,10 +3,12 @@ package com.example.uploadservice.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-
+@Entity
+@Table(name = "nastavnik")
 public class Nastavnik{
 
-  
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     public String ime;
     public String prezime;

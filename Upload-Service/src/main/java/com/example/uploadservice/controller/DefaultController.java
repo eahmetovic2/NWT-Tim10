@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.example.uploadservice.model.Greska;
 import com.example.uploadservice.proxy.UploadIzostanakServiceProxySimple;
 
+import com.example.uploadservice.model.Nastavnik;
+
 import com.example.uploadservice.model.Zadaca;
 import com.example.uploadservice.service.ZadacaService;
 
@@ -65,6 +67,8 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ConstraintViolation;
 
 import com.example.uploadservice.rabbitmq.UcenikMessageSender;
+import com.example.uploadservice.rabbitmq.PredmetMessageSender;
+import com.example.uploadservice.rabbitmq.NastavnikMessageSender;
 
 @RestController
 public class DefaultController {
@@ -89,6 +93,12 @@ public class DefaultController {
 
     @Autowired
     private UcenikMessageSender ucenikMessageSender;
+
+    @Autowired
+    private PredmetMessageSender predmetMessageSender;
+
+    @Autowired
+    private NastavnikMessageSender nastavnikMessageSender;
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstaintViolatoinException(final ConstraintViolationException ex) {
@@ -122,6 +132,16 @@ public class DefaultController {
     @RequestMapping(value="/predmet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> savePredmet(@RequestBody Predmet predmet) { 
         return simpleProxy.savePredmet(predmet);
+    }
+
+    @RequestMapping(value="/predmetAsync", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void savePredmetAsync(@RequestBody Predmet predmet) { 
+        predmetMessageSender.sendPredmet(predmet);
+    }
+
+    @RequestMapping(value="/nastavnikAsync", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveNastavnikAsync(@RequestBody Nastavnik nastavnik) { 
+        nastavnikMessageSender.sendNastavnik(nastavnik);
     }
 
     // ---> Update Predmet - PUT <---
