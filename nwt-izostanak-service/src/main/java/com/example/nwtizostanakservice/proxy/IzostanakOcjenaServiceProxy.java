@@ -6,12 +6,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.*;
 
-import com.example.nwtizostanakservice.model.Predmet;
-import com.example.nwtizostanakservice.model.Ucenik;;
+import com.example.nwtizostanakservice.model.Ucenik;
 
 
 @FeignClient("ocjena-service")
-
 public interface IzostanakOcjenaServiceProxy {
 
 	@GetMapping("/ocjena/sve")
