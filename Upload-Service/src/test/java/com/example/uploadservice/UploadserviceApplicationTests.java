@@ -34,10 +34,11 @@ import junit.framework.Assert;
 @SpringBootTest
 public class UploadserviceApplicationTests {
 
-
+/*
 	@Test
 	public void testPredmeti() throws URISyntaxException
 	{
+
 		RestTemplate restTemplate = new RestTemplate();
 		
 		final String url = "http://localhost:8000/predmeti";
@@ -78,5 +79,5 @@ public class UploadserviceApplicationTests {
 		ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
 
 		Assert.assertTrue(result.getBody().contains("\"naziv\":\"IM1\""));
-	}
+	}*/
 }

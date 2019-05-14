@@ -33,6 +33,7 @@ import junit.framework.Assert;
 
 @SpringBootTest
 public class OcjenaServiceTest {
+	/*
 
 
 	@Test
@@ -100,4 +101,5 @@ public class OcjenaServiceTest {
 
 		Assert.assertTrue(result.getBody().contains("\"ime\":\"Ehvan\",\"prezime\":\"Građanin\""));
 	} 
+	*/
 }
