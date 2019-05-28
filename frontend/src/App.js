@@ -32,10 +32,11 @@ class App extends Component {
           <NavBar/>
           <Login/>
           {this.state.token}
+          <div className="App">
+            <div className="Container">{this.props.children}</div>
+          </div>
       </div>
     );
   }
- 
 }
-
 export default App;
