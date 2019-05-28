@@ -1,0 +1,33 @@
+version: '3'
+services:
+  eureka-service:
+    container_name: eureka-service
+    build:
+      context: eureka-service
+      dockerfile: Dockerfile
+    image: eureka-service:0.0.1-SNAPSHOT
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    networks:
+      - emp-network
+  uploadservice:
+    container_name: uploadservice
+    build:
+      context: Upload-Service
+      dockerfile: Dockerfile
+    image:  uploadservice:0.0.1-SNAPSHOT
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    networks:
+      - emp-network
+    links:
+      - eureka-service:eureka-service
+    depends_on:
+      - eureka-service
+networks:
+  emp-network:
+    driver: bridge
