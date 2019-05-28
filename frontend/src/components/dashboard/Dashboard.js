@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
 import axios from "axios";
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class Dashboard extends Component {
 	state = {
@@ -19,10 +20,12 @@ class Dashboard extends Component {
 	}
 	render() {
 		return (
-			<div>
-				<pre>
-					<code>{JSON.stringify(this.state.ucenici, null, 2)}</code>
-				</pre>
+			<div className="container">
+				<BootstrapTable data={ this.state.ucenici }>
+					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
+					<TableHeaderColumn dataField='ime'>Ime</TableHeaderColumn>
+					<TableHeaderColumn dataField='prezime'>Prezime</TableHeaderColumn>
+				</BootstrapTable>
 			</div>
 		);
 	}

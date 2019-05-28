@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 //import './App.css';
 import axios from 'axios';
-import NavBar from './NavBar/NavBar';
-import Login from './Login/Login';
+import NavBar from './components/navbar/NavBar';
+import '../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
 
 class App extends Component {
   state = {
@@ -30,8 +31,6 @@ class App extends Component {
     return (
       <div>
           <NavBar/>
-          <Login/>
-          {this.state.token}
           <div className="App">
             <div className="Container">{this.props.children}</div>
           </div>

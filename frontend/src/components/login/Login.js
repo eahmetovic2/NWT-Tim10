@@ -47,23 +47,40 @@ class Login extends Component {
 			return <Redirect to="/" />;
 		}
 		return (
-			<div>
-				<input
-					type="text"
-					name="username"
-					placeholder="Username"
-					onChange={e => this.handleInput(e)}
-				/>
-
-				<input
-					type="password"
-					name="password"
-					placeholder="Password"
-					onChange={e => this.handleInput(e)}
-				/>
-
-				<button onClick={e => this.handleClick(e)}>LOGIN</button>
-			</div>
+			<div className="container">
+				<div className="row">
+					<div className="col-12">
+						<div className="card border-primary">
+							<div className="card-header">Login</div>
+							<div className="card-body text-left">
+								<div className="form-group">
+									<label htmlFor="exampleInputEmail1">Username:</label>
+									<input
+										type="text"
+										name="username"
+										onChange={e => this.handleInput(e)}
+										className="form-control"
+										placeholder="Username"
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="exampleInputEmail1">Password:</label>
+									<input
+										type="password"
+										name="password"
+										onChange={e => this.handleInput(e)}
+										className="form-control"
+										placeholder="Password"
+									/>
+								</div>
+								<button className="btn btn-primary" onClick={e => this.handleClick(e)}>
+									LOGIN
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+      		</div>
 		);
 	}
 }
