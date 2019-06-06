@@ -7,12 +7,14 @@ import withAuth from "../helpers/withAuth";
 
 const Login = loadable(() => import("../components/login/Login"));
 const Dashboard = loadable(() => import("../components/dashboard/Dashboard"));
+const dodajMaterijal = loadable(() => import("../components/dodajMaterijal/dodajMaterijal"));
 
 export default (
 	<App>
 		<Switch>
 			<Route path="/" exact component={withAuth(Dashboard)} />
 			<Route path="/login" component={Login} />
+			<Route path="/dodajMaterijal" component={withAuth(dodajMaterijal)} />
 		</Switch>
 	</App>
 );
