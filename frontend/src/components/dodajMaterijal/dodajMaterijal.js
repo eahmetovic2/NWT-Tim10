@@ -48,6 +48,7 @@ class dodajMaterijal extends Component {
 
 	render() {
 		return (
+			<div className="container">
 			<div className="upload">
 			<Button variant="primary">Upload</Button>
 			<h2>    Uploadani materijal:  </h2>
@@ -66,6 +67,7 @@ class dodajMaterijal extends Component {
 			<ProgressBar animated now={100} />
 			<h2>    Poruka:  </h2>
 			<p>Upload u toku</p>
+			</div>
 			</div>
 		);
 	}

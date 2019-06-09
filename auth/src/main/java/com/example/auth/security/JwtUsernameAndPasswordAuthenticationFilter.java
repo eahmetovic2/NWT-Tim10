@@ -69,6 +69,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.compact();
 		//response.getWriter().println("Test");
 		response.addHeader(jwtConfig.getHeader(), token);
+
 		// try {
     //     response.setContentType("application/json");
 		// 		response.setCharacterEncoding("utf-8");

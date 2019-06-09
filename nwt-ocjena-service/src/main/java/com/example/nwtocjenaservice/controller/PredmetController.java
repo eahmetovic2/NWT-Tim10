@@ -104,4 +104,11 @@ public class PredmetController {
     public List<Predmet> getAllPredmet() { 
         return predmetService.dajSvePredmete();		
     }
+
+    
+    // ---> Get All Predmet - GET <---
+    @RequestMapping(value="/predmeti/nastavnik/{id}", method = RequestMethod.GET)
+    public List<Predmet> dajPredmeteNastavnika(@PathVariable Integer id) { 
+        return predmetService.dajSvePredmeteNastavnika(id);
+    }
 }

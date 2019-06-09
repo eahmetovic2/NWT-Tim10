@@ -25,6 +25,7 @@ class Login extends Component {
 				password
 			})
 			.then(response => {
+				console.log("LOGIN:",response);
 				if (response.status === 200) {
 					localStorage.setItem(
 						"token",

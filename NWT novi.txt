@@ -1,0 +1,25 @@
+dajPredmeteProfesora
+dajUcenikePredmeta (samo ucenike)
+Kada se klikne na ucenika treba otvorit novu formu gdje treba izbacit editovanje prisustva i omoguciti samo dodavanje ocjene. Ocjena se moze dodati samo na datum registrovanih casova.
+
+dodajPredmet
+
+Kada otvoris predmet tu treba biti mogucnost dodavanja ucenika.
+
+generisi izvjestaj (ucenici sa ocjenama predmeta)
+
+
+dodati kolonu zakljucna (bool) u ocjene
+
+
+registruj cas 
+
+Na formi gdje su izlistani svi ucenici predmeta treba dodati dugme registruj cas. Klikom na to dugme se otvara nova forma gdje su prikazani svi ucenici i pored imena checkboxi 'prisutan' i 'nije prisutan'. Na dnu te forme dugme 'potvrdi'.
+
+
+Odjeljenja cemo rijesiti tako sto se kreira novi predmet npr "Matematika 2-b".
+
+
+U zadace treba dodati datum kreiranja i datum isteka zadace.
+
+Ucenik ne moze uploadat zadacu, samo moze downloadat ono sto profesor postavi. Ucenik moze da vidi datum isteka zadace i ostvarene bodove na zadaci.

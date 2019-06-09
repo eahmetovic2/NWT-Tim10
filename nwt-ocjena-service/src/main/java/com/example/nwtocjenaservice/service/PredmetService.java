@@ -13,4 +13,6 @@ public interface PredmetService {
    	List<Predmet> dajSvePredmete();
 
 	void delete(Predmet predmet);
+
+	List<Predmet> dajSvePredmeteNastavnika(int nastavnikId);
 }

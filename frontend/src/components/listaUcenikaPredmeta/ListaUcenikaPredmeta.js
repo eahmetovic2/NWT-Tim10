@@ -1,31 +1,40 @@
 import React, { Component } from "react";
-import "./Dashboard.css";
-import PocetnaNastavnik from '../../components/pocetnaNastavnik/pocetnaNastavnik';
+import "./ListaUcenikaPredmeta.css";
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-class Dashboard extends Component {
+class ListaUcenikaPredmeta extends Component {
 	state = {
+		uceniciPredmeta: [],
 		ucenici: []
 	};
 	componentDidMount() {
-		console.log("DASHBOARD:", this.props);
 		const { auth } = this.props;
+		console.log(this.props.match.params.predmetID);
 		axios
-			.get("/nwtUpload/ucenici", {
+			.get("/nwtOcjena/ucenik-predmeta/predmet/"+ this.props.match.params.predmetID, {
 				headers: {
 					Authorization: "Bearer " + auth
 				}
 			})
-			.then(response => this.setState({ ucenici: response.data }))
+			.then(response => 
+				{
+					var tmp = [];
+					this.setState({ uceniciPredmeta: response.data });
+					
+					this.state.uceniciPredmeta.forEach((element) => {
+						tmp.push(element.ucenik);
+					  });
+					this.setState({ ucenici: tmp });
+				})
 			.catch(err => console.log(err));
 	}
 	render() {
+		console.log("RENDER",this.state)
 		return (
 			<div className="container">
-				<PocetnaNastavnik props={this.props}/>
-				<div class="razmak"></div>
-				<h2>Učenici</h2>
+
+				<h3>Učenici predmeta</h3>
 				<BootstrapTable data={ this.state.ucenici }>
 					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
 					<TableHeaderColumn dataField='ime'>Ime</TableHeaderColumn>
@@ -36,4 +45,4 @@ class Dashboard extends Component {
 	}
 }
 
-export default Dashboard;
+export default ListaUcenikaPredmeta;
