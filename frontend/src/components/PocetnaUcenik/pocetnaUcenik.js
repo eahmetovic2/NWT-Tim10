@@ -6,20 +6,20 @@ import { Redirect } from "react-router-dom";
 
 class pocetnaUcenik extends Component {
 	state = {
-		ucenici: []
+		predmeti: [],
+		redirect: false,
+		predmet: {}
 	};
 
 	componentDidMount() {
 		this.props = this.props.props;
-		console.log("PocetnaNastavnik:", this.props);
 		
 		const { auth } = this.props;
 		var token = auth;
 		token = token.replace('Bearer ','');
 		var decoded = jwt.decode(token);
-		console.log(decoded);
 		axios
-			.get("/nwtOcjena/predmeti/nastavnik/1", {
+			.get("/ucenik-predmeta/ucenik/1", {
 				headers: {
 					Authorization: "Bearer " + auth
 				}
@@ -44,13 +44,17 @@ class pocetnaUcenik extends Component {
 	};
 	
 	render() {
+		const { redirect, predmet } = this.state;
+		if (redirect) {
+			return <Redirect to={"/ucenici/predmet/" + predmet.id} />;
+		}
 		return (
-			<div className="container">
-				<BootstrapTable data={ this.state.ucenici }>
-					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
-					<TableHeaderColumn dataField='ime'>Ime</TableHeaderColumn>
-					<TableHeaderColumn dataField='prezime'>Prezime</TableHeaderColumn>
-				</BootstrapTable>
+			<div>
+				<h2>Predmeti</h2>
+			<BootstrapTable data={ this.state.predmeti } options={ this.options }>
+				<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
+				<TableHeaderColumn dataField='naziv'>Naziv</TableHeaderColumn>
+			</BootstrapTable>
 			</div>
 		);
 	}

@@ -25,7 +25,13 @@ public class AppUser {
             this.nastavnikId = nastavnikId;
     }
 
-    public AppUser(){}
+    public AppUser(){
+        username="";
+        password="";
+        role="";
+        ucenikId=0;
+        nastavnikId=0;
+    }
 
     public String getUsername() {
         return username;

@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 	private BCryptPasswordEncoder encoder;
 
 	@Autowired
-    private AppUserService appUserService;
+    public AppUserService appUserService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,16 +38,20 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 
 		for(AppUser appUser: users) {
 			appUser.setPassword(encoder.encode(appUser.getPassword()));
+			System.out.printf("prvi: %s", appUser.getRole());
 			if(appUser.getUsername().equals(username)) {
+				
 				
 				// Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
 				// So, we need to set it to that format, so we can verify and compare roles (i.e. hasRole("ADMIN")).
 				List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-		                	.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
+		                	.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole() + ",nastavnik:" + appUser.getNastavnikId() + ",ucenik:" + appUser.getUcenikId());
 				
 				// The "User" class is provided by Spring and represents a model class for user to be returned by UserDetailsService
 				// And used by auth manager to verify and check user authentication.
-				return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
+				//return new AppUser(150,appUser.getUsername(), appUser.getPassword(),appUser.getRole(),appUser.getUcenikId(),appUser.getNastavnikId());//,grantedAuthorities
+				return new User(appUser.getUsername(), appUser.getPassword(),grantedAuthorities);
+			
 			}
 		}
 		

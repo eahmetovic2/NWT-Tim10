@@ -26,11 +26,7 @@ class Dashboard extends Component {
 				<PocetnaNastavnik props={this.props}/>
 				<div class="razmak"></div>
 				<h2>Učenici</h2>
-				<BootstrapTable data={ this.state.ucenici }>
-					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
-					<TableHeaderColumn dataField='ime'>Ime</TableHeaderColumn>
-					<TableHeaderColumn dataField='prezime'>Prezime</TableHeaderColumn>
-				</BootstrapTable>
+				<Pocetnaucenik props={this.props}/>
 			</div>
 		);
 	}
