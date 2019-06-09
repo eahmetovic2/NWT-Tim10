@@ -30,6 +30,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	private AuthenticationManager authManager;
 	
 	private final JwtConfig jwtConfig;
+
+	private UserCredentials creds;
     
 	public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
 		this.authManager = authManager;
@@ -43,7 +45,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		
 		try {
 			
-			UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
+			creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
 			
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
 					creds.getUsername(), creds.getPassword(), Collections.emptyList());
@@ -69,7 +71,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.compact();
 		//response.getWriter().println("Test");
 		response.addHeader(jwtConfig.getHeader(), token);
-
+		response.addHeader("username", creds.getUsername());//username, role, natavnikId, ucenikId
+		response.addHeader("rola", creds.getRola());
+		response.addHeader("natavnikId", Integer.toString(creds.getNatavnikId()));
+		response.addHeader("ucenikId", Integer.toString(creds.getUcenikId()));
+		response.addHeader("password", creds.getPassword());
 		// try {
     //     response.setContentType("application/json");
 		// 		response.setCharacterEncoding("utf-8");
@@ -99,7 +105,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 
 	private static class UserCredentials {
-	    private String username, password;
+		private String username="";
+		private String password="";
+		public Integer natavnik_id=0;
+		public Integer ucenik_id=0;
+
+		private String role="";
+
+
 	    
 	    public String getUsername() {
 			return username;
@@ -111,8 +124,21 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	    public String getPassword() {
 			return password;
 		}
+		public Integer getNatavnikId() {
+			return natavnik_id;
+		}
+		public Integer getUcenikId() {
+			return ucenik_id;
+		}
+		public String getRola() {
+			return role;
+		}
 	    public void setPassword(String password) {
 			this.password = password;
 		}
+		public void setRole(String role) {
+			this.role = role;
+		}
+
 	}
 }

@@ -17,8 +17,6 @@ class Login extends Component {
 
 	handleClick(e) {
 		const { username, password } = this.state;
-		console.log(username);
-		console.log(password);
 		axios
 			.post("/auth", {
 				username,
