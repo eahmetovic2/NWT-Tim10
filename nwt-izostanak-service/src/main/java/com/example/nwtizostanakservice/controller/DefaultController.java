@@ -80,7 +80,7 @@ public class DefaultController {
         predmetService.save(predmet);
 
         Date k = new Date(2011, 22, 9);
-        Izostanak i = new Izostanak(k,predmet,ucenik);
+        Izostanak i = new Izostanak(k,predmet,ucenik, true);
         izostanakService.save(i);
 
         //Testni slucajevi;

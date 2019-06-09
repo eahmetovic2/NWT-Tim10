@@ -31,6 +31,9 @@ public class Izostanak{
 
     @Column(name="opravdan")
     public boolean opravdan;
+    
+    @Column(name="prisutan")
+    public boolean prisutan;
 
 
     public Izostanak() {}
@@ -55,11 +58,20 @@ public class Izostanak{
         this.opravdan=opravdan;
     }
 
-    public Izostanak(Date datum, Predmet predmet, Ucenik ucenik){
+    public boolean getPrisutan() {
+        return prisutan;
+    }
+    
+    public void setPrisutan(boolean prisutan) {
+        this.prisutan=prisutan;
+    }
+
+    public Izostanak(Date datum, Predmet predmet, Ucenik ucenik, boolean prisutan){
         this.datum = datum;
         this.predmet=predmet;
         this.ucenik=ucenik;
         this.opravdan=false;
+        this.prisutan=prisutan;
     }
 
     
@@ -70,6 +82,7 @@ public class Izostanak{
             ", predmetid='" + getPredmet() + "'" +
             ", ucenikid='" + getUcenik() + "'" +
             ", opravdan='" + getOpravdanje() + "'" +
+            ", prisutan='" + getPrisutan() + "'" +
             "}";
     }
 }

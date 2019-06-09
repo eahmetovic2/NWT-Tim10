@@ -15,5 +15,7 @@ public class IzostanakRequest{
     public Integer predmetid;
 
     public boolean opravdan;
+
+    public boolean prisutan;
     
 }

@@ -40,6 +40,7 @@ class PocetnaNastavnik extends Component {
 		this.props = this.props.props;
 		this.props.history.push(path);
 		console.log(this.props)
+		
 	  };
 	options = {
 		onRowClick: 		
@@ -48,10 +49,6 @@ class PocetnaNastavnik extends Component {
 	}
 	
 	render() {
-		const { redirect, predmet } = this.state;
-		if (redirect) {
-			return <Redirect to={"/ucenici/predmet/" + predmet.id} />;
-		}
 		return (
 			<div>
 				<h2>Predmeti</h2>

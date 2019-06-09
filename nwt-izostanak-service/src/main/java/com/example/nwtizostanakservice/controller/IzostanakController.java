@@ -116,13 +116,18 @@ public class IzostanakController {
         }
         Izostanak i;
         try {
-            i=izostanakService.save(new Izostanak(model.datum,predmet,ucenik));
+            i=izostanakService.save(new Izostanak(model.datum,predmet,ucenik, model.prisutan));
 
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nemoguce kreirati takav izostanak");
         
         }
         return ResponseEntity.ok(i);
+    }
+
+    @RequestMapping(value="/izostanak/ucenik/{ucenikId}/predmet/{predmetId}", method = RequestMethod.GET)
+    public List<Izostanak> vratiIzostankeUcenikaPredmeta(@PathVariable Integer ucenikId, @PathVariable Integer predmetId) throws Exception { 
+        return izostanakService.dajSveIzostankeUcenikaPredmeta(ucenikId, predmetId);
     }
 
 }
