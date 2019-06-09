@@ -29,12 +29,21 @@ public class UcenikPredmetaController {
 
     @RequestMapping(value="/ucenik-predmeta/predmet/{predmetId}", method = RequestMethod.GET)
     public List<UcenikPredmeta> dajSveUcenikePredmeta(@PathVariable Integer predmetId) { 
-        return ucenikPredmetaService.dajSveUcenikePredmeta(predmetId);
+        //return ucenikPredmetaService.dajSvePredmeteUcenika(predmetId);
+        return ucenikPredmetaService.dajSveUcenikePredmeta(predmetId);//ispravno
     }
 
     @RequestMapping(value="/ucenik-predmeta/{ucenikPredmetaId}", method = RequestMethod.GET)
     public Optional<UcenikPredmeta> getUcenikPredmetaById(@PathVariable Integer ucenikPredmetaId) { 
-        return ucenikPredmetaService.getUcenikPredmetaById(ucenikPredmetaId);
+        
+        //return ucenikPredmetaService.dajSvePredmeteUcenika(ucenikId);
+        return ucenikPredmetaService.getUcenikPredmetaById(ucenikPredmetaId);//ispravno
+    }
+    
+    
+    @RequestMapping(value="/ucenik-predmeta/ucenik/{ucenikId}", method = RequestMethod.GET)
+    public List<UcenikPredmeta> dajSvePredmeteUcenika(@PathVariable Integer ucenikId) {
+        return ucenikPredmetaService.dajSvePredmeteUcenika(ucenikId);
     }
 
     @RequestMapping(value = "/ucenik-predmeta/create", method = RequestMethod.POST, consumes="application/json")
@@ -61,4 +70,7 @@ public class UcenikPredmetaController {
         UcenikPredmeta ucenikPredmeta = new UcenikPredmeta(0, ucenik, predmet);
         return ucenikPredmetaService.save(ucenikPredmeta);
     }
+
+    
+
 }

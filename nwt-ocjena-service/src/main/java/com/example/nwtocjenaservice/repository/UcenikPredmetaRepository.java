@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.nwtocjenaservice.model.UcenikPredmeta;
 import com.example.nwtocjenaservice.model.Predmet;
 
+import com.example.nwtocjenaservice.model.Ucenik;
+
 
 @Repository
 public interface UcenikPredmetaRepository extends JpaRepository<UcenikPredmeta, Integer> {
@@ -15,6 +17,8 @@ public interface UcenikPredmetaRepository extends JpaRepository<UcenikPredmeta, 
 	UcenikPredmeta findById(int id);
 	
 	List<UcenikPredmeta> findByPredmet(Predmet predmet);
+
+	List<UcenikPredmeta> findByUcenik(Ucenik ucenik);
 	
 	List<UcenikPredmeta> findAll();
 	

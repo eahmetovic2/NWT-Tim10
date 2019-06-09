@@ -10,7 +10,7 @@ class Dashboard extends Component {
 	};
 	componentDidMount() {
 		console.log("DASHBOARD:", this.props);
-		const { auth } = this.props;
+		const { auth, username, role, natavnikId, ucenikId } = this.props;
 		axios
 			.get("/nwtUpload/ucenici", {
 				headers: {

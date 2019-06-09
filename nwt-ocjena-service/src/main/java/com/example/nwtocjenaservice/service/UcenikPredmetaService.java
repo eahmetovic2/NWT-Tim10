@@ -13,4 +13,6 @@ public interface UcenikPredmetaService {
    	List<UcenikPredmeta> dajSveUcenikePredmeta(int predmetId);
 
 	void delete(UcenikPredmeta ucenikPredmeta);
+
+	List<UcenikPredmeta> dajSvePredmeteUcenika(int ucenikId);
 }

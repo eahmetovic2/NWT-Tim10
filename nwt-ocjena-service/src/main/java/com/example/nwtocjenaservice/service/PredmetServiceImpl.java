@@ -43,4 +43,5 @@ public class PredmetServiceImpl implements PredmetService {
         List<Predmet> predmeti = predmetRepository.findByNastavnik(nastavnik);
         return predmeti;
     }
+    
 }
