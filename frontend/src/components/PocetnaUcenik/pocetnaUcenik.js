@@ -35,7 +35,6 @@ class pocetnaUcenik extends Component {
 		this.state.redirect = true;
 		this.props = this.props.props;
 		this.props.history.push(path);
-		console.log(this.props)
 	  };
 	options = {
 		onRowClick: 		
