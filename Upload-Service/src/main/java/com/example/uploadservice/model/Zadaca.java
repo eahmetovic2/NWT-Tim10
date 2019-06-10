@@ -44,6 +44,9 @@ public class Zadaca{
     private String status;
 
 
+    public Integer getId() {
+        return id;
+    }
     public String getStatus() {
         return status;
     }

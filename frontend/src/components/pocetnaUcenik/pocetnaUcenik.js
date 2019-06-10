@@ -9,17 +9,21 @@ class PocetnaUcenik extends Component {
 	state = {
 		predmeti: [],
 		redirect: false,
-		ucenik: {}
+		ucenik: {},
+		id: null
 	};
 
 	componentDidMount() {
-		this.props = this.props.props;
-		const { auth } = this.props;
+		console.log("POCETNA UCENIK");
+		this.state.id = this.props.id;
+		this.setState({id: this.props.id});
+
+		const { auth } = this.props.items;
 		var token = auth;
 		token = token.replace('Bearer ','');
 		var decoded = jwt.decode(token);
 		axios
-			.get("/nwtOcjena/ucenik-predmeta/ucenik/1", {
+			.get("/nwtOcjena/ucenik-predmeta/ucenik/" + this.state.id, {
 				headers: {
 					Authorization: "Bearer " + auth
 				}
@@ -38,7 +42,7 @@ class PocetnaUcenik extends Component {
 
 	routeChange = (row) => {
 		let path = "/ucenik/" + 1 + "/predmet/" + row.id;
-		this.props = this.props.props;
+		this.props = this.props.items;
 		this.props.history.push(path);
 		console.log(this.props)
 		

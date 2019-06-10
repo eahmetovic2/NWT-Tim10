@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./pocetnaNastavnik.css";
 import axios from "axios";
-import jwt from 'jsonwebtoken'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import { Redirect } from "react-router-dom";
 
@@ -12,19 +11,18 @@ class PocetnaNastavnik extends Component {
 	state = {
 		predmeti: [],
 		redirect: false,
-		predmet: {}
+		predmet: {},
+		id: null
 	};
 	componentDidMount() {
-		this.props = this.props.props;
-		console.log("PocetnaNastavnik:", this.props);
+		console.log("POCETNA NASTAVNIK");
+		this.state.id = this.props.id;
+		this.setState({id: this.props.id});
+		//console.log("PocetnaNastavnik:", this.props);
 		
-		const { auth } = this.props;
-		var token = auth;
-		token = token.replace('Bearer ','');
-		var decoded = jwt.decode(token);
-		console.log(decoded);
+		const { auth } = this.props.items;
 		axios
-			.get("/nwtOcjena/predmeti/nastavnik/1", {
+			.get("/nwtOcjena/predmeti/nastavnik/" + this.state.id, {
 				headers: {
 					Authorization: "Bearer " + auth
 				}
@@ -37,7 +35,7 @@ class PocetnaNastavnik extends Component {
 		let path = "/ucenici/predmet/" + row.id;
 		this.state.predmet = row;
 		this.state.redirect = true;
-		this.props = this.props.props;
+		this.props = this.props.items;
 		this.props.history.push(path);
 		console.log(this.props)
 		

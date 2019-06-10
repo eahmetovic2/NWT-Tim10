@@ -91,11 +91,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.compact();
 		//response.getWriter().println("Test");
 		response.addHeader(jwtConfig.getHeader(), token);
-		response.addHeader("username", creds.getUsername());//username, role, natavnikId, ucenikId
-		response.addHeader("rola", creds.getRole());
+		//response.addHeader("username", creds.getUsername());//username, role, natavnikId, ucenikId
+		//response.addHeader("rola", creds.getRole());
 		//response.addHeader("natavnikId", Integer.toString(creds.getNastavnikId()));
 		//esponse.addHeader("ucenikId", Integer.toString(creds.getUcenikId()));
-		response.addHeader("password", creds.getPassword());
+		//response.addHeader("password", creds.getPassword());
 		// try {
     //     response.setContentType("application/json");
 		// 		response.setCharacterEncoding("utf-8");
