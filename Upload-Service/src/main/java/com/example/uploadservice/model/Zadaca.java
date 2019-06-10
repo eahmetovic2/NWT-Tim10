@@ -1,5 +1,7 @@
 package com.example.uploadservice.model;
 
+import java.sql.Date;
+
 import com.example.uploadservice.model.Predmet;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -15,13 +17,21 @@ public class Zadaca{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Predmet.class)
-    @JoinColumn(name = "predmet_id", nullable = true)
-    private Predmet predmet;
+    //@ManyToOne(fetch = FetchType.EAGER, targetEntity = Predmet.class)
+    //@JoinColumn(name = "predmet_id", nullable = true)
+    //private Predmet predmet;
+
+    private Integer predmetId;
     
 
     @Column(name="file_name")
     private String fileName;
+
+    @Column(name="datumIsteka")
+    public Date datumIsteka;
+
+    @Column(name="naziv")
+    private String naziv;
 
     @Column(name="file_id")
     private String fileId;
@@ -56,20 +66,28 @@ public class Zadaca{
     }
 
 
-    public Predmet getPredmet() {
-        return predmet;
+    public Integer getPredmetId() {
+        return predmetId;
     }
 
-    public void setPredmet(Predmet predmet) {
-        this.predmet = predmet;
+    public void setPredmetId(Integer predmet) {
+        this.predmetId = predmet;
     }
 
     public String getFileName() {
         return fileName;
     }
 
+    public String getNaziv() {
+        return naziv;
+    }
+
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public String getFileId() {
@@ -110,7 +128,7 @@ public class Zadaca{
     }
     public Zadaca(String status, Predmet predmet, String fileName, String fileId, String fileType, String webContentLink, String webViewLink){
         this.status = status;
-        this.predmet = predmet;
+        //this.predmet = predmet;
         this.fileName = fileName;
         this.fileId = fileId;
         this.fileType = fileType;

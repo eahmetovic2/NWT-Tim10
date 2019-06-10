@@ -23,7 +23,7 @@ class UcenikPredmeta extends Component {
 	};
 	
 	componentDidMount() {
-
+		console.log(" UCENIK PREDMETA ENIS");
 		const { auth } = this.props;
 		console.log(this.props.match.params)
 		axios

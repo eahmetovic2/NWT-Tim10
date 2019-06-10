@@ -13,7 +13,7 @@ const UcenikPredmeta = loadable(() => import("../components/ucenikPredmeta/Uceni
 const predmetUcenika = loadable(() => import("../components/predmetUcenika/predmetUcenika"));
 const materijaliUcenika = loadable(() => import("../components/materijaliUcenika/materijaliUcenika"));
 const zadaceUcenika = loadable(() => import("../components/zadaceUcenika/zadaceUcenika"));
-const UploadZadacu = loadable(() => import("../components/uploadZadacu/UploadZadacu"));
+const UploadZadacu = loadable(() => import("../components/uploadZadacu/uploadZadacu"));
 
 
 export default (
@@ -26,7 +26,7 @@ export default (
 			<Route path="/predmet/:predmetId/ucenik/:ucenikId" component={withAuth(UcenikPredmeta)} />
 			<Route path="/ucenik/:ucenikId/predmet/:predmetId" component={withAuth(predmetUcenika)} />
 			<Route path="/materijaliPregled/:predmetId" component={withAuth(predmetUcenika)} />
-			<Route path="/zadaceUcenika/:ucenikId/predmet/:predmetId" component={withAuth(predmetUcenika)} />
+			<Route path="/zadaceUcenika/:ucenikId/predmet/:predmetId" component={withAuth(zadaceUcenika)} />
 			
 			
 			<Route path="/dodajMaterijal" component={withAuth(dodajMaterijal)} />

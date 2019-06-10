@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Table(name = "bodovi_zadaca")
 public class BodoviZadaca{
 
-    @Transient
+    //@Transient
     private Integer ucenikId;
 
     @Transient
@@ -23,9 +23,12 @@ public class BodoviZadaca{
     @JoinColumn(name = "zadaca_id", nullable = false)
     private Zadaca zadaca;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Ucenik.class)
-    @JoinColumn(name = "ucenik_id", nullable = false)
-    private Ucenik ucenik;
+    //@ManyToOne(fetch = FetchType.EAGER, targetEntity = Ucenik.class)
+    //@JoinColumn(name = "ucenik_id", nullable = false)
+    //private Ucenik ucenik;
+
+
+    //private Integer ucenik_id;
 
     @Min(value=0, message= "Broj bodova za odredenu zadacu mora biti izmedu 1 i 10.")
     @Column(name="bodovi")
@@ -40,13 +43,17 @@ public class BodoviZadaca{
         this.zadaca = zadaca;
     }
 
-    public Ucenik getUcenik() {
-        return ucenik;
+    //public Ucenik getUcenik() {
+    //    return ucenik;
+    //}
+
+    public void setUcenikId(Integer ucenikId) {
+        this.ucenikId = ucenikId;
     }
 
-    public void setUcenik(Ucenik ucenik) {
-        this.ucenik = ucenik;
-    }
+    //public void setUcenikId(Ucenik ucenik) {
+    //    this.ucenik = ucenik;
+    //}
 
     public Integer getBodovi() {
         return bodovi;
@@ -68,9 +75,9 @@ public class BodoviZadaca{
         return ucenikId;
     }
 
-    public void setUcenikId(Integer ucenikId) {
-        this.ucenikId = ucenikId;
-    }
+    //public void setUcenikId(Integer ucenikId) {
+    //    this.ucenikId = ucenikId;
+    //}
 
     public BodoviZadaca() {}
     public BodoviZadaca(Integer zadacaId, Integer ucenikId, Integer bodovi) {
@@ -80,7 +87,7 @@ public class BodoviZadaca{
     }
     public BodoviZadaca(Zadaca zadaca, Ucenik ucenik, Integer bodovi){
         this.zadaca = zadaca;
-        this.ucenik = ucenik;
+        //this.ucenik = ucenik;
         this.bodovi = bodovi;
     }
 }

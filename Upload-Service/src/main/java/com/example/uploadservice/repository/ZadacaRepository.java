@@ -16,7 +16,7 @@ public interface ZadacaRepository extends JpaRepository<Zadaca, Integer> {
 	
 	List<Zadaca> findAll();
 
-	List<Zadaca> findByPredmet(Predmet predmet);
+	List<Zadaca> findByPredmetId(Integer predmetId);
 	
 	Zadaca save(Zadaca zadaca);
 	

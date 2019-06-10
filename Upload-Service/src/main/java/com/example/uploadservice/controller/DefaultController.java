@@ -171,7 +171,7 @@ public class DefaultController {
         //System.out.println(simpleProxy.getPredmet(predmetId).getBody());
         //Predmet pred=Predmet.class.cast (simpleProxy.getPredmetP(predmetId).getBody());
         Predmet pred=simpleProxy.getPredmetP(predmetId);
-        List<Zadaca> lista = zadacaService.getZadacaByPredmet(pred);
+        List<Zadaca> lista = zadacaService.getZadacaByPredmetId(pred.getId());
         return lista;//simpleProxy.getPredmet(predmetId);//lista;
     }
 
@@ -298,7 +298,7 @@ public class DefaultController {
         try {
             Zadaca zadaca = zadacaService.getZadacaById(zadacaId).get();
             Predmet predmet = predmetService.getPredmetById(predmetId).get();
-            zadaca.setPredmet(predmet);
+            zadaca.setPredmetId(predmet.getId());//izmjena
             zadacaData = zadacaService.save(zadaca);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Nevalidan zadacaId ili predmetId."));

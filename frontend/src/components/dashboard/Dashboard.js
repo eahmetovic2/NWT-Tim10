@@ -43,6 +43,7 @@ class Dashboard extends Component {
 			.catch(err => console.log(err));
 	}
 	Pocetna(a) {
+		console.log(a);
 		const uloga = a.state.rola;
 		if (uloga == "ROLE_u") {
 		  return <PocetnaUcenik items={this.props} id={this.state.id}/>;

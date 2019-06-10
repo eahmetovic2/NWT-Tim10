@@ -14,7 +14,7 @@ public interface ZadacaService {
     
 	//List<Zadaca> getAllZadaca();
 	   
-	List<Zadaca> getZadacaByPredmet(Predmet predmet);
+	List<Zadaca> getZadacaByPredmetId(Integer predmetId);
 
 	Zadaca getZadacaByFileName(String fileName);
 	void delete(Zadaca zadaca);

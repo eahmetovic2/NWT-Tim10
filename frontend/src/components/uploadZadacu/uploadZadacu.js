@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./UploadZadacu.css";
+import "./uploadZadacu.css";
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ProgressBar from 'react-bootstrap/ProgressBar';

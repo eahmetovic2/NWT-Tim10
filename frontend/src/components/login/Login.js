@@ -43,7 +43,7 @@ class Login extends Component {
 		});
 	}
 	render() {
-		const { username, password, redirect } = this.state;
+		const { redirect } = this.state;
 		if (redirect) {
 			return <Redirect to="/" />;
 		}

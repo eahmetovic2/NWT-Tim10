@@ -22,8 +22,11 @@ class predmetUcenika extends Component {
 	
 	componentDidMount() {
 
+
+
 		const { auth } = this.props;
-		console.log(this.props.match.params)
+		console.log("PREDMETI UCENIKA HAMZA");
+		//console.log(this.props.match.params)
 		axios
 			.get("/nwtOcjena/predmet/"+ this.props.match.params.predmetId, {
 				headers: {
@@ -87,7 +90,7 @@ class predmetUcenika extends Component {
 
 	handleClick(e) {
 		console.log(this.props);
-		let path = "/zadacePregled/" + this.props.match.params.predmetId;
+		let path = "/zadaceUcenika/" +this.state.ucenik.id+ "/predmet/" +  this.props.match.params.predmetId;
 		//this.props = this.props.props;
 		console.log(this.props);
 		this.props.history.push(path);

@@ -15,7 +15,6 @@ class PocetnaNastavnik extends Component {
 		id: null
 	};
 	componentDidMount() {
-		console.log("POCETNA NASTAVNIK");
 		this.state.id = this.props.id;
 		this.setState({id: this.props.id});
 		//console.log("PocetnaNastavnik:", this.props);

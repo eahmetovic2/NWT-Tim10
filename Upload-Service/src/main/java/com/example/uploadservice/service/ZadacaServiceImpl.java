@@ -36,8 +36,8 @@ public class ZadacaServiceImpl implements ZadacaService {
     //}
 
     @Override
-    public List<Zadaca> getZadacaByPredmet(Predmet predmet) {
-        return zadacaRepository.findByPredmet(predmet);//IZMJENA
+    public List<Zadaca> getZadacaByPredmetId(Integer predmetId) {
+        return zadacaRepository.findByPredmetId(predmetId);//IZMJENA
     }
 
     @Override
