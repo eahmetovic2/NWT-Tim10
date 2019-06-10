@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
 import PocetnaNastavnik from '../../components/pocetnaNastavnik/pocetnaNastavnik';
+import PocetnaUcenik from '../../components/pocetnaUcenik/pocetnaUcenik';
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
@@ -26,7 +27,7 @@ class Dashboard extends Component {
 				<PocetnaNastavnik props={this.props}/>
 				<div class="razmak"></div>
 				<h2>Učenici</h2>
-				<Pocetnaucenik props={this.props}/>
+				<PocetnaUcenik props={this.props}/>
 			</div>
 		);
 	}

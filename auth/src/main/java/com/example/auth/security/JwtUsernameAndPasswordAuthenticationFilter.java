@@ -39,9 +39,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	private final JwtConfig jwtConfig;
 
 	//private UserDetailsServiceImpl userK;
-	//private UserCredentials creds;
+	private UserCredentials creds;
 
-	private AppUser creds;
+	//private AppUser creds;
     
 	public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
 		this.authManager = authManager;
@@ -61,7 +61,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 
 
-			creds = new ObjectMapper().readValue(request.getInputStream(), AppUser.class);
+			creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
 			//System.out.printf("USO1, %s",String.valueOf(request));
 			//System.out.printf("USO2 --------->, %s",creds.getRole());
 			//creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);

@@ -2,6 +2,7 @@ package com.example.uploadservice.service;
 
 
 import com.example.uploadservice.model.Zadaca;
+import com.example.uploadservice.model.Predmet;
 import com.example.uploadservice.repository.ZadacaRepository;
 import com.example.uploadservice.service.ZadacaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,14 @@ public class ZadacaServiceImpl implements ZadacaService {
         return zadacaRepository.save(zadaca);
     }
 
+    //@Override
+    //public List<Zadaca> getAllZadaca() {
+    //    return zadacaRepository.findAll();
+    //}
+
     @Override
-    public List<Zadaca> getAllZadaca() {
-        return zadacaRepository.findAll();
+    public List<Zadaca> getZadacaByPredmet(Predmet predmet) {
+        return zadacaRepository.findByPredmet(predmet);//IZMJENA
     }
 
     @Override

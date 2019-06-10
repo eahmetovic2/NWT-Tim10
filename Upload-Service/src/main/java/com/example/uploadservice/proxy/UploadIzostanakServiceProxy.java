@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import com.example.uploadservice.model.Predmet;
-
+import com.example.uploadservice.model.Zadaca;
 
 @FeignClient(name="ocjena-service")
 
@@ -17,7 +17,13 @@ public interface UploadIzostanakServiceProxy {
 	public List<Predmet> dajSvePredmete();
 
 	@GetMapping("/predmet/{id}")
-	public ResponseEntity<Object>  getPredmet(@PathVariable Integer id);
+	public Predmet getPredmetP(@PathVariable Integer id);
+
+	@GetMapping("/predmet/{id}")
+	public ResponseEntity<Object> getPredmet(@PathVariable Integer id);
+
+	@GetMapping("/zadaca/predmet/{predmetId}")
+	public ResponseEntity<Zadaca>  getZadacePredmeta(@PathVariable Integer predmetId);
 
 	@PostMapping("/predmet")
 	public ResponseEntity<Object> savePredmet(@RequestBody Predmet predmet);

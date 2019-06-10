@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.uploadservice.model.Zadaca;
-
+import com.example.uploadservice.model.Predmet;
 
 @Repository
 public interface ZadacaRepository extends JpaRepository<Zadaca, Integer> {
@@ -15,6 +15,8 @@ public interface ZadacaRepository extends JpaRepository<Zadaca, Integer> {
 	Zadaca findById(int id);
 	
 	List<Zadaca> findAll();
+
+	List<Zadaca> findByPredmet(Predmet predmet);
 	
 	Zadaca save(Zadaca zadaca);
 	

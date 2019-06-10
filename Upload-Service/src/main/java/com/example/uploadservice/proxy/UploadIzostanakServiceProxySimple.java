@@ -23,6 +23,10 @@ public interface UploadIzostanakServiceProxySimple {
 	@PostMapping("/predmet")
 	public ResponseEntity<Object> savePredmet(@RequestBody Predmet predmet);
 
+
+	@GetMapping("/predmet/{id}")
+	public Predmet getPredmetP(@PathVariable Integer id);
+
 	@PutMapping("/predmet/{predmetId}")
 	public ResponseEntity<Object> updatePredmet(@RequestBody Predmet predmet, @PathVariable Integer predmetId);
 

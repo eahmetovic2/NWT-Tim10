@@ -165,6 +165,17 @@ public class DefaultController {
     }
 
 
+
+    @RequestMapping(value="/predmetOcjena/{predmetId}", method = RequestMethod.GET)//DODANO NAKNADNO
+	public  List<Zadaca> getZadacePredmeta(@PathVariable Integer predmetId) {//List<Zadaca>
+        //System.out.println(simpleProxy.getPredmet(predmetId).getBody());
+        //Predmet pred=Predmet.class.cast (simpleProxy.getPredmetP(predmetId).getBody());
+        Predmet pred=simpleProxy.getPredmetP(predmetId);
+        List<Zadaca> lista = zadacaService.getZadacaByPredmet(pred);
+        return lista;//simpleProxy.getPredmet(predmetId);//lista;
+    }
+
+
     // ---> Get All Predmet - GET <---
     @RequestMapping(value="/predmeti", method = RequestMethod.GET)
     public List<Predmet> getAllPredmet() { 
@@ -293,14 +304,14 @@ public class DefaultController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Greska("Nevalidan zadacaId ili predmetId."));
         }
         return ResponseEntity.ok(zadacaData);
-       
     }
+
+
 
 
     @RequestMapping(value="/bodoviZadaca", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> bodoviZadaca(@RequestBody BodoviZadaca bodoviZadaca) { 
         BodoviZadaca bodoviZadacaData = null;
-        System.out.println(bodoviZadaca.getUcenikId());
         try {
             Ucenik ucenik = ucenikService.getUcenikById(bodoviZadaca.getUcenikId()).get();
             Zadaca zadaca = zadacaService.getZadacaById(bodoviZadaca.getZadacaId()).get();
@@ -310,6 +321,11 @@ public class DefaultController {
         }
         return ResponseEntity.ok(bodoviZadacaData);
     }
+
+    //@RequestMapping(value="/bodoviZadace", method = RequestMethod.GET)
+    //public List<Zadaca> getAllZadaca() { 
+    //    return zadacaService.getAllZadaca();
+    //}
 
     @RequestMapping(value="/bodoviZadace", method = RequestMethod.GET)
     public List<BodoviZadaca> getAllBodoviZadaca() { 
