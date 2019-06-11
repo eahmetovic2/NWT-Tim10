@@ -56,13 +56,15 @@ class zadaceUcenika extends Component {
 			})
 			.then(response => 
 				{
-					
-					//this.setState({ zadace: response.data });
 					var zad_temp=[];
 					response.data.forEach(element => {
 						console.log("ELEMENT:",element);
 						if(element.predmetId==this.state.predmet.predmetId)
+						{
+							element.zadaca.upload = "Upload";
 							zad_temp.push(element.zadaca);
+						}
+							
 					});
 					this.setState({zadace:zad_temp});
 				})
@@ -70,16 +72,44 @@ class zadaceUcenika extends Component {
 
 			
 	};
-	
-	render() {
-		console.log("DRUGI:",this);
+
+	routeChange = (row) => {
+		console.log(row.datumIsteka);
+		if (new Date(row.datumIsteka) > new Date()) {
+			/*
+			console.log(this);
+			let path ="zadaca/dodaj/ucenik/"+this.state.ucenik.id+"/predmet/" + this.state.predmet.id;
+			this.state.predmet = row;
+			this.state.redirect = true;
+			this.props = this.props.items;
+			this.props.history.push(path);*/
+		}
+	};
+	options = {
+		onRowClick: 		
+			this.routeChange
+		
+	}
+
+	buttonFormatter(){
+		return '<BootstrapButton type="submit"></BootstrapButton>';
+	}
+	//dodajZadacu(e) {
+	//	this.setState({redirect: true});
+	//}
+	render() {		
+		//const { redirect, predmet } = this.state;
+		//if (redirect) {
+		//	return <Redirect to={"/zadaca/dodaj/"+predmet.id} />;
+		//}
 		return (
 			<div>
 				<h2>Zadace</h2>
-			<BootstrapTable data={ this.state.zadace } >
+			<BootstrapTable data={ this.state.zadace } options={ this.options } >
 				<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
 				<TableHeaderColumn dataField='naziv' >Naziv</TableHeaderColumn>
 				<TableHeaderColumn dataField='datumIsteka'>Datum isteka</TableHeaderColumn>
+				<TableHeaderColumn dataField='upload'>Upload</TableHeaderColumn>
 			</BootstrapTable>
 			</div>
 		);

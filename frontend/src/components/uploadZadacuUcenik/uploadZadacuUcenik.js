@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./uploadZadacu.css";
+import "./uploadZadacuUcenik.css";
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -8,7 +8,7 @@ import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 
 
-class UploadZadacu extends Component {
+class uploadZadacuUcenik extends Component {
 	constructor(props) {
 		super(props);
 		  this.state = {
@@ -119,4 +119,4 @@ class UploadZadacu extends Component {
 	}
 }
 
-export default UploadZadacu;
+export default uploadZadacuUcenik;

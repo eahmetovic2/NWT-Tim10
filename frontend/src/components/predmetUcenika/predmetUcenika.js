@@ -129,6 +129,7 @@ class predmetUcenika extends Component {
 								<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
 								<TableHeaderColumn dataField='datum'>Datum</TableHeaderColumn>
 								<TableHeaderColumn dataField='ocjena'>Ocjena</TableHeaderColumn>
+								<TableHeaderColumn>Upload</TableHeaderColumn>
 							</BootstrapTable>
 						</div>
 					</div>

@@ -44,7 +44,6 @@ class PocetnaUcenik extends Component {
 		let path = "/ucenik/" + 1 + "/predmet/" + row.id;
 		this.props = this.props.items;
 		this.props.history.push(path);
-		console.log(this.props)
 		
 	  };
 	options = {
