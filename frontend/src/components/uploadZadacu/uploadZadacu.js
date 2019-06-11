@@ -82,7 +82,6 @@ class UploadZadacu extends Component {
 					data.append('zadacaId', response.data.id)
 
 					var headers = {
-						'Content-Type': 'application/json',
 						'Authorization': "Bearer " + this.props.auth 
 					}
 

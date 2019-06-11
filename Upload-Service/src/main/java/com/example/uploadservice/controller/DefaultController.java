@@ -348,7 +348,7 @@ public class DefaultController {
         
 
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-            String serverUrl = "http://localhost:3000/upload/";
+            String serverUrl = "https://google-drive-api-nwt.herokuapp.com/upload/";
             RestTemplate restTemplate = new RestTemplate();
             Map<String,String> response = restTemplate.postForObject(serverUrl, requestEntity, Map.class);
             
