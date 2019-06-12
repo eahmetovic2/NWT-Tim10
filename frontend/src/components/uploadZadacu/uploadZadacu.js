@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import "./uploadZadacu.css";
+import "./UploadZadacu.css";
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Badge from 'react-bootstrap/Badge';
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
+
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets-moment'; 
 
 
 class UploadZadacu extends Component {
@@ -14,6 +18,8 @@ class UploadZadacu extends Component {
 		  this.state = {
 			selectedFile: null
 		  }
+			Moment.locale('en');
+			momentLocalizer();
 	   
 	  }
 	  
@@ -33,7 +39,9 @@ class UploadZadacu extends Component {
 	onClickHandler = () => {
 
 		var data2 = {
-			status: 'open'
+			status: 'open',
+			naziv: this.state.naziv,
+			datumIsteka: this.state.datum
 	   	}
 		var headers = {
             'Content-Type': 'application/json',
@@ -65,16 +73,18 @@ class UploadZadacu extends Component {
 
 					axios.post("/nwtUpload/uploadFile", data, {headers: headers})
 					.then(res => { 
-						console.log(res)
+						alert("Uspješno ste dodali zadaću!");
 					})
 				})
-				.catch(err => console.log(err));
+				.catch(err => {alert("Uspješno ste dodali zadaću!")});
             })
             .catch((error) => {
                 console.log(error);
             })
 	}
-
+	handleInput(e) {
+		this.setState({naziv: e.target.value})
+	}
 	render() {
 		return (
 			<div className="container">
@@ -84,8 +94,37 @@ class UploadZadacu extends Component {
 							<div className="card-header">Dodavanje zadaće</div>
 							<div className="card-body text-left">
 								<div className="upload">
-									<input type="file" name="file" onChange={this.onChangeHandler}/>
+								
+									<div className="form-group">
+										<label htmlFor="exampleInputEmail1">Naziv:</label>									
+										<input
+												type="text"
+												name="Naziv"
+												onChange={e => this.handleInput(e)}
+												className="form-control"
+												placeholder="Naziv"
+											/>
+									</div>
+									<div className="form-group">
+										<label htmlFor="exampleInputEmail1">Datum isteka zadaće:</label>
+										
+										<DateTimePicker
+											value={this.state.datum}
+											onChange={value => this.setState({ datum : value })}
+											time={false}
+										/>
+									</div>
+									<div className="form-group">
+										<label htmlFor="exampleInputEmail1">Materijal:</label>
+										<br></br>
+										<input 
+											type="file" 
+											name="file" 
+											onChange={this.onChangeHandler}
+											placeholder="Odaberite datoteku"/>
+									</div>
 									
+									<br></br>
 									<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> 
 									
 									

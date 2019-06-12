@@ -3,6 +3,8 @@ import "./pocetnaNastavnik.css";
 import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import { Redirect } from "react-router-dom";
+import { Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 class PocetnaNastavnik extends Component {
 	constuctor() {
@@ -12,7 +14,9 @@ class PocetnaNastavnik extends Component {
 		predmeti: [],
 		redirect: false,
 		predmet: {},
-		id: null
+		id: null,
+		tipDodavanja: "",
+		show: false
 	};
 	componentDidMount() {
 		this.state.id = this.props.id;
@@ -44,15 +48,35 @@ class PocetnaNastavnik extends Component {
 			this.routeChange
 		
 	}
+	handleClose() {
+		this.setState({ show: false });
+	}
 	
-	render() {
+	handleShow(tipDodavanja) {
+		this.setState({ tipDodavanja, show: true });
+	}
+	dodajPredmet(e) {
+		this.setState({redirect: true});
+	}
+	render() {		
+		const { redirect, id, tipDodavanja } = this.state;
+		if (redirect) {
+			return <Redirect to={"/predmet/dodaj/"+id} />;
+		}
 		return (
 			<div>
-				<h2>Predmeti</h2>
-			<BootstrapTable data={ this.state.predmeti } options={ this.options }>
-				<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
-				<TableHeaderColumn dataField='naziv'>Naziv</TableHeaderColumn>
-			</BootstrapTable>
+				
+				<br></br>
+				<h2>Predmeti
+					<button className="btn btn-primary right" onClick={e => this.dodajPredmet(e)}>
+						Dodaj
+					</button>
+				</h2>
+				
+				<BootstrapTable data={ this.state.predmeti } options={ this.options }>
+					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
+					<TableHeaderColumn dataField='naziv'>Naziv</TableHeaderColumn>
+				</BootstrapTable>
 			</div>
 		);
 	}

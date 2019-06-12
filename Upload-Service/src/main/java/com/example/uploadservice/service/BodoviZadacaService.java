@@ -9,7 +9,9 @@ public interface BodoviZadacaService {
 	
 	Optional<BodoviZadaca> getBodoviZadacaById(Integer id);
 	
-    BodoviZadaca save(BodoviZadaca bodoviZadaca);
+	BodoviZadaca save(BodoviZadaca bodoviZadaca);
+	
+	List<BodoviZadaca>  getAllBodoviZadacaUcenika(Integer ucenikId);
     
    	List<BodoviZadaca> getAllBodoviZadaca();
 

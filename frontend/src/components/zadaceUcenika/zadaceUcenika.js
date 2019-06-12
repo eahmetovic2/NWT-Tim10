@@ -14,6 +14,7 @@ class zadaceUcenika extends Component {
 		ucenik:{},
 		redirect: false,
 		predmet: {},
+		Bodovi_zadace:[],
 		zadace:[]
 	};
 
@@ -57,24 +58,60 @@ class zadaceUcenika extends Component {
 			.then(response => 
 				{
 					var zad_temp=[];
+					var zad_tempb=[];
 					response.data.forEach(element => {
-						console.log("ELEMENT:",element);
 						if(element.predmetId==this.state.predmet.predmetId)
 						{
-							element.zadaca.upload = "Upload";
-							zad_temp.push(element.zadaca);
+							//element.zadaca.upload = "Upload";
+							zad_tempb.push(element);
+							zad_tempb.push(element.zadaca);
 						}
 							
 					});
+					this.setState({Bodovi_zadace:zad_tempb});
 					this.setState({zadace:zad_temp});
 				})
 			.catch(err => console.log(err));
-
-			
-	};
+		axios
+			.get("/nwtUpload/predmetOcjena/"+this.props.match.params.predmetId, {
+				headers: {
+					Authorization: "Bearer " + auth
+				}
+			})
+			.then(response => 
+				{
+					this.setState({ zadace : response.data });
+					this.state.zadace.forEach(function(element) { element.bodovi = null; });
+					axios
+					.get("/nwtUpload/bodoviZadace/ucenik/"+this.props.match.params.ucenikId, {
+						headers: {
+							Authorization: "Bearer " + auth
+						}
+					})
+					.then(response => {
+						let novi = this.state.zadace;
+						console.log(response.data)
+						let zadacaIds = novi.map(zadaca => zadaca.id);
+						let zadace = response.data.filter(el => ~zadacaIds.indexOf(el.zadaca.id))
+						.reduce((zadace,el) => {
+							zadace[el.zadaca.id] = el.bodovi
+							return zadace;
+						},{});
+						novi.map(zadaca => {
+							if(zadace[zadaca.id]){
+								zadaca["bodovi"] = zadace[zadaca.id]
+							}
+							return zadaca;
+						})
+						this.setState({zadace: novi});
+							
+					});
+				});
+			}
+		
+	
 
 	routeChange = (row) => {
-		console.log(row.datumIsteka);
 		if (new Date(row.datumIsteka) > new Date()) {
 			/*
 			console.log(this);
@@ -85,15 +122,20 @@ class zadaceUcenika extends Component {
 			this.props.history.push(path);*/
 		}
 	};
+
 	options = {
 		onRowClick: 		
 			this.routeChange
 		
-	}
+	};
 
-	buttonFormatter(){
-		return '<BootstrapButton type="submit"></BootstrapButton>';
+	prikaz(cell, row) {
+		if(row.webContentLink != null) {
+			return <a href={row.webContentLink} target="_blank">Download</a>;
+		}
+		return null; 
 	}
+	
 	//dodajZadacu(e) {
 	//	this.setState({redirect: true});
 	//}
@@ -105,11 +147,12 @@ class zadaceUcenika extends Component {
 		return (
 			<div>
 				<h2>Zadace</h2>
-			<BootstrapTable data={ this.state.zadace } options={ this.options } >
+			<BootstrapTable data={ this.state.zadace } >
 				<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
 				<TableHeaderColumn dataField='naziv' >Naziv</TableHeaderColumn>
 				<TableHeaderColumn dataField='datumIsteka'>Datum isteka</TableHeaderColumn>
-				<TableHeaderColumn dataField='upload'>Upload</TableHeaderColumn>
+				<TableHeaderColumn dataFormat={this.prikaz}>Download</TableHeaderColumn>
+				<TableHeaderColumn dataField='bodovi'>Bodovi</TableHeaderColumn>
 			</BootstrapTable>
 			</div>
 		);

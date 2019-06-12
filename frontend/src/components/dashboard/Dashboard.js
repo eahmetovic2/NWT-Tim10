@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Dashboard.css";
 import PocetnaNastavnik from '../../components/pocetnaNastavnik/pocetnaNastavnik';
 import PocetnaUcenik from '../../components/pocetnaUcenik/pocetnaUcenik';
+import PocetnaAdmin from '../../components/pocetnaAdmin/pocetnaAdmin';
 import axios from "axios";
 import jwt from 'jsonwebtoken'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -50,6 +51,9 @@ class Dashboard extends Component {
 		}
 		else if (uloga == "ROLE_n") {
 			return <PocetnaNastavnik items={this.props} id={this.state.id}/>;
+		}
+		else if (uloga == "ROLE_a") {
+			return <PocetnaAdmin items={this.props} id={this.state.id}/>;
 		}
 		return null;
 	  }

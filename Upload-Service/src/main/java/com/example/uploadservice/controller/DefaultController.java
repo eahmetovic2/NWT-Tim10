@@ -170,8 +170,8 @@ public class DefaultController {
 	public  List<Zadaca> getZadacePredmeta(@PathVariable Integer predmetId) {//List<Zadaca>
         //System.out.println(simpleProxy.getPredmet(predmetId).getBody());
         //Predmet pred=Predmet.class.cast (simpleProxy.getPredmetP(predmetId).getBody());
-        Predmet pred=simpleProxy.getPredmetP(predmetId);
-        List<Zadaca> lista = zadacaService.getZadacaByPredmetId(pred.getId());
+        //Predmet pred=simpleProxy.getPredmetP(predmetId);
+        List<Zadaca> lista = zadacaService.getZadacaByPredmetId(predmetId);
         return lista;//simpleProxy.getPredmet(predmetId);//lista;
     }
 
@@ -330,6 +330,11 @@ public class DefaultController {
     @RequestMapping(value="/bodoviZadace", method = RequestMethod.GET)
     public List<BodoviZadaca> getAllBodoviZadaca() { 
         return bodoviZadacaService.getAllBodoviZadaca();
+    }
+
+    @RequestMapping(value="/bodoviZadace/ucenik/{ucenikId}", method = RequestMethod.GET)
+    public List<BodoviZadaca> getAllBodoviZadacaUcenika(@PathVariable Integer ucenikId) {
+        return bodoviZadacaService.getAllBodoviZadacaUcenika(ucenikId);
     }
 
     @RequestMapping(value="/uploadFile", method = RequestMethod.POST)

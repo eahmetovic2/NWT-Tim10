@@ -105,45 +105,40 @@ class predmetUcenika extends Component {
 	
 	render() {
 		
-		Moment.locale('en');
-		momentLocalizer();
 		return (
 			<div className="container">
-			<div className="row">
-				<div className="col-12">
-				<div className="card border">
-						<div className="card-header">Osnovne informacije</div>
-						<div className="card-body text-left">
-							<h1>{this.state.ucenik.ime + " " + this.state.ucenik.prezime}</h1>
-							<h2>{this.state.predmet.naziv}</h2>
-							
-							<div class="razmak"></div>
-							<h3>Prisustvo</h3>
-							<BootstrapTable data={ this.state.izostanci } >
-								<TableHeaderColumn dataField='datum' isKey>Datum</TableHeaderColumn>
-								<TableHeaderColumn dataField='prisutan' dataFormat={this.prisutanFormatter}>Prisutan</TableHeaderColumn>
-							</BootstrapTable>
-							<div class="razmak"></div>
-							<h3>Ocjene</h3>
-							<BootstrapTable data={ this.state.ocjene } >
-								<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
-								<TableHeaderColumn dataField='datum'>Datum</TableHeaderColumn>
-								<TableHeaderColumn dataField='ocjena'>Ocjena</TableHeaderColumn>
-								<TableHeaderColumn>Upload</TableHeaderColumn>
-							</BootstrapTable>
+				<div className="row">
+					<div className="col-12">
+					<div className="card border">
+							<div className="card-header">Osnovne informacije</div>
+							<div className="card-body text-left">
+								<h1>{this.state.ucenik.ime + " " + this.state.ucenik.prezime}</h1>
+								<h2>{this.state.predmet.naziv}</h2>
+								
+								<div className="razmak"></div>
+								<h3>Prisustvo</h3>
+								<BootstrapTable data={ this.state.izostanci } >
+									<TableHeaderColumn dataField='datum' isKey>Datum</TableHeaderColumn>
+									<TableHeaderColumn dataField='prisutan' dataFormat={this.prisutanFormatter}>Prisutan</TableHeaderColumn>
+								</BootstrapTable>
+								<div class="razmak"></div>
+								<h3>Ocjene</h3>
+								<BootstrapTable data={ this.state.ocjene } >
+									<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
+									<TableHeaderColumn dataField='datum'>Datum</TableHeaderColumn>
+									<TableHeaderColumn dataField='ocjena'>Ocjena</TableHeaderColumn>
+									
+								</BootstrapTable>
+							</div>
 						</div>
+						<div className="razmak"></div>
+						<button className="btn btn-primary" onClick={e => this.handleClick(e)}>
+									Zadace
+						</button>
+						<div className="razmak"></div>
 					</div>
-					<div class="razmak"></div>
-					<button className="btn btn-primary" onClick={e => this.handleClick(e)}>
-								Zadace
-					</button>
-					<div class="razmak"></div>
-					<button className="btn btn-primary" onClick={e => this.handleClick2(e)}>
-								Materijali
-					</button>
 				</div>
-			</div>
-		  </div>
+		  	</div>
 		);
 	}
 }

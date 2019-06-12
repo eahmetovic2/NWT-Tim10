@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "zadaca")
@@ -122,9 +123,22 @@ public class Zadaca{
         this.webViewLink = webViewLink;
     }
 
+    public Date getDatumIsteka() {
+        return this.datumIsteka;
+    }
+
+    public void setDatumIsteka(Date datum) {
+        this.datumIsteka = datum;
+    }
+
     public Zadaca() {}
     public Zadaca(String status){
         this.status =  status;
+    }
+    public Zadaca(String status,String naziv, Date datum){
+        this.status =  status;
+        this.naziv = naziv;
+        this.datumIsteka = datum;
     }
     public Zadaca(String status, Predmet predmet, String fileName, String fileId, String fileType, String webContentLink, String webViewLink){
         this.status = status;

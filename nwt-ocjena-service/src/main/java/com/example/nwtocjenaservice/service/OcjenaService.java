@@ -14,6 +14,8 @@ public interface OcjenaService {
 	   
    	List<Ocjena> dajSveOcjeneUcenika(int ucenikId);
 
+	List<Ocjena> dajSveOcjenePredmeta(int predmetaId);
+
 	void delete(Ocjena ucenik);
 
 	List<Ocjena> dajSveOcjeneUcenikaPredmeta(Integer ucenikId, Integer predmetId) throws Exception;

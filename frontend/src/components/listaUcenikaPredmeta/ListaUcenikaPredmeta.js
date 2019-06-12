@@ -4,6 +4,7 @@ import axios from "axios";
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ZadacePredmeta from '../../components/zadacePredmeta/ZadacePredmeta';
 import { Redirect } from "react-router-dom";
+import { CSVLink } from 'react-csv';
 
 class ListaUcenikaPredmeta extends Component {
 	constuctor() {
@@ -14,7 +15,8 @@ class ListaUcenikaPredmeta extends Component {
 		uceniciPredmeta: [],
 		ucenici: [],
 		predmet: {},
-		redirect: false
+		redirect: false,
+		dataForCSV: []
 	};
 	componentDidMount() {
 		const { auth } = this.props;
@@ -47,6 +49,27 @@ class ListaUcenikaPredmeta extends Component {
 					this.setState({ ucenici: tmp });
 				})
 			.catch(err => console.log(err));
+		axios
+			.get("/nwtOcjena/ocjena/predmet/"+ this.props.match.params.predmetID, {
+				headers: {
+					Authorization: "Bearer " + auth
+				}
+			})
+			.then(response => 
+				{	
+					console.log(response.data);
+					let dataForCSV = [];
+					response.data.forEach(info => {
+						dataForCSV.push({
+							"ime": info.ucenik.ime,
+							"prezime": info.ucenik.prezime,
+							"ocjena": info.ocjena,
+							"datum": info.datum
+						})
+					});
+					this.setState({dataForCSV}, () => console.log(this.state));
+				})
+			.catch(err => console.log(err));
 	}
 	routeChange = (row) => {
 		let path = "/predmet/" + this.props.match.params.predmetID + "/ucenik/" + row.id;
@@ -63,6 +86,13 @@ class ListaUcenikaPredmeta extends Component {
 	dodajZadacu(e) {
 		this.setState({redirect: true});
 	}
+	handleClose() {
+		this.setState({ show: false });
+	}
+	
+	handleShow(tipDodavanja) {
+		this.setState({ tipDodavanja, show: true });
+	}
 	render() {		
 		const { redirect, predmet } = this.state;
 		if (redirect) {
@@ -73,6 +103,11 @@ class ListaUcenikaPredmeta extends Component {
 				<div className="row">
 					<div className="col-12">						
 						<h1>{this.state.predmet.naziv}</h1>
+
+						Generisi <CSVLink data={this.state.dataForCSV}  filename="izvjestaj.csv">
+            			CSV ⬇</CSVLink> izvjestaj
+						<br></br>
+
 						<div className="card border">
 							<div className="card-header">Učenici predmeta</div>
 							<div className="card-body text-left">								

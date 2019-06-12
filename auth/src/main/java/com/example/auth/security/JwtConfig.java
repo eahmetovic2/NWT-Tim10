@@ -5,6 +5,9 @@ public class JwtConfig {
     @Value("${security.jwt.uri:/auth/**}")
     private String Uri;
 
+		@Value("${security.jwt.uri:/auth/create/**}")
+    private String UriSecond;
+
     @Value("${security.jwt.header:Authorization}")
     private String header;
 
@@ -19,6 +22,10 @@ public class JwtConfig {
 	
     public String getUri() {
 		return Uri;
+	}
+
+	public String getUriSecond() {
+		return UriSecond;
 	}
 
 	public String getHeader() {

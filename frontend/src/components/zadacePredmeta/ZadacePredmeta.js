@@ -29,13 +29,20 @@ class ZadacePredmeta extends Component {
 			.catch(err => console.log(err));
 
 	};
-	
+	// webContentLink
+	prikaz(cell, row) {
+		if(row.webContentLink != null)
+			return <a href={row.webContentLink} target="_blank">Download</a>;
+		return null;
+	}
 	render() {
 		return (
 			<div>
 				<BootstrapTable data={ this.state.zadace } >
 					<TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
 					<TableHeaderColumn dataField='naziv'>Naziv</TableHeaderColumn>
+					<TableHeaderColumn dataField='datumIsteka'>Datum isteka</TableHeaderColumn>
+					<TableHeaderColumn dataFormat={this.prikaz}>Download</TableHeaderColumn>
 				</BootstrapTable>
 			</div>
 		);

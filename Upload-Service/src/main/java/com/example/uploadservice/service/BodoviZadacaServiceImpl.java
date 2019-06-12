@@ -33,6 +33,10 @@ public class BodoviZadacaServiceImpl implements BodoviZadacaService {
     public List<BodoviZadaca> getAllBodoviZadaca() {
         return bodoviZadacaRepository.findAll();
     }
+    @Override
+    public List<BodoviZadaca>  getAllBodoviZadacaUcenika(Integer ucenikId) {
+        return bodoviZadacaRepository.findByUcenikId(ucenikId);
+    }
 
     public void delete(BodoviZadaca bodoviZadaca){
         bodoviZadacaRepository.delete(bodoviZadaca);

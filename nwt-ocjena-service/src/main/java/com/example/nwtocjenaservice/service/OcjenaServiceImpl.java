@@ -45,6 +45,14 @@ public class OcjenaServiceImpl implements OcjenaService {
         return ocjene;
     }
 
+    
+    @Override
+    public List<Ocjena> dajSveOcjenePredmeta(int predmetId) {
+        Predmet predmet = predmetRepository.findById(predmetId);
+        List<Ocjena> ocjene = ocjenaRepository.findByPredmet(predmet);
+        return ocjene;
+    }
+
     @Override
     public List<Ocjena> dajSveOcjeneUcenikaPredmeta(Integer ucenikId, Integer predmetId) throws Exception {
         if(ucenikId == null) {

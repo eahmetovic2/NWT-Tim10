@@ -40,6 +40,11 @@ public class OcjenaController {
         return ocjenaService.dajSveOcjeneUcenika(ucenikId);
     }
 
+    @RequestMapping(value="/ocjena/predmet/{predmetId}", method = RequestMethod.GET)
+    public List<Ocjena> dajSveOcjenePredmeta(@PathVariable Integer predmetId) { 
+        return ocjenaService.dajSveOcjenePredmeta(predmetId);
+    }
+
     @RequestMapping(value="/ocjena/ucenik/{ucenikId}/predmet/{predmetId}", method = RequestMethod.GET)
     public List<Ocjena> dajSveOcjeneUcenikaPredmeta(@PathVariable Integer ucenikId, @PathVariable Integer predmetId) throws Exception { 
         

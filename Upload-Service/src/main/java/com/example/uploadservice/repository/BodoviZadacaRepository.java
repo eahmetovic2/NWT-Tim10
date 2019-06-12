@@ -15,6 +15,8 @@ public interface BodoviZadacaRepository extends JpaRepository<BodoviZadaca, Inte
 	BodoviZadaca findById(int id);
 	
 	List<BodoviZadaca> findAll();
+
+	List<BodoviZadaca> findByUcenikId(Integer ucenikId);
 	
 	BodoviZadaca save(BodoviZadaca bodoviZadaca);
 

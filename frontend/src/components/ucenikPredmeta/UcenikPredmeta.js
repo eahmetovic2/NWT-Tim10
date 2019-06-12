@@ -89,8 +89,8 @@ class UcenikPredmeta extends Component {
 	handleClick(e) {
 		const { ocjena, datum, predmet, ucenik } = this.state;
 		const { auth } = this.props;
-		const ucenik_id = predmet.id;
-		const predmet_id = ucenik.id;
+		const ucenik_id = ucenik.id;
+		const predmet_id = predmet.id;
 		var headers = {
             'Content-Type': 'application/json',
             'Authorization': "Bearer " + auth
@@ -107,6 +107,9 @@ class UcenikPredmeta extends Component {
 			.post("/nwtOcjena/ocjena/create", data, {headers: headers})
 			.then(response => {
 				console.log("OCJENA:",response);
+				this.state.ocjene.push(response.data);
+				this.setState({ocjene: this.state.ocjene})
+				alert("Uspješno dodana ocjena.");
 			})
 			.catch(error => alert("error: Server error!"));
 	}
