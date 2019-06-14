@@ -1,6 +1,6 @@
 version: '3'
 services:
- eureka-service:
+  eureka-service:
     container_name: eureka-service
     build:
       context: eureka-service
@@ -10,9 +10,9 @@ services:
       - 8761
     ports:
       - 8761:8761
-
-
- uploadservice:
+    networks:
+      - emp-network
+  uploadservice:
     container_name: uploadservice
     build:
       context: Upload-Service
@@ -22,8 +22,12 @@ services:
       - 8000
     ports:
       - 8000:8000
-    network_mode: "host"
+    networks:
+      - emp-network
+    links:
+      - eureka-service:eureka-service
     depends_on:
       - eureka-service
-
-
+networks:
+  emp-network:
+    driver: bridge

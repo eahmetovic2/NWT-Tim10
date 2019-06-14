@@ -34,6 +34,7 @@ import junit.framework.Assert;
 
 @SpringBootTest
 public class IzostanakServiceTest {
+	/*
 
 
 	@Test
@@ -69,4 +70,5 @@ public class IzostanakServiceTest {
 		Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
 		client.close();
 	} 
+	*/
 }
